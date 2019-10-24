@@ -1,0 +1,64 @@
+<<: !include "./hpack/module.yaml"
+
+<<: *meta
+name:                lorentz-contracts-sale
+version:             0.1.0.0
+github:              "tqtezos/lorentz-contracts-sale"
+license:             BSD3
+author:              "Michael J. Klein"
+maintainer:          "michael@tqgroup.io"
+copyright:           "2019 Michael J. Klein"
+
+extra-source-files:
+- README.md
+
+description:         Please see the README on GitHub at <https://github.com/githubuser/lorentz-contracts-sale#readme>
+
+library:
+  <<: *lorentz-lib-common
+
+  dependencies:
+    - containers
+    - data-default
+    - fmt
+    - morley
+    - morley-prelude
+    - named
+    - singletons
+    - text
+    - vinyl
+    - cryptonite
+    - bytestring
+    - aeson
+    - constraints
+    - binary
+    - lorentz-contracts
+
+executables:
+  lorentz-contracts-sale:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - lorentz-contracts-sale
+    - optparse-applicative
+    - morley
+    - named
+    - text
+    - morley-prelude
+    - singletons
+    - ansi-wl-pprint
+
+tests:
+  lorentz-contracts-sale-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - lorentz-contracts-sale

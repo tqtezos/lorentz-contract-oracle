@@ -1,0 +1,27 @@
+resolver: lts-13.22
+
+packages:
+- .
+# - prelude
+# - lorentz-contracts
+# - indigo
+
+extra-deps:
+- aeson-options-0.1.0
+- base58-bytestring-0.1.0
+- hex-text-0.1.0.0
+- show-type-0.1.1
+
+- git:
+    https://gitlab.com/morley-framework/morley.git
+    # ^ CI cannot use ssh, so we use http clone here
+  commit:
+    06bbe4e0cba9c1cf83bcf61b78666c6b5bb34c34 # master
+  subdirs:
+    - .
+    - lorentz-contracts
+    - prelude
+    - indigo
+
+nix:
+  shell-file: shell.nix
