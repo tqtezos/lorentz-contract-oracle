@@ -11,12 +11,14 @@ extra-deps:
 - base58-bytestring-0.1.0
 - hex-text-0.1.0.0
 - show-type-0.1.1
-
+- constraints-0.11.2@sha256:d028005d93f891b48b61ff0c82c6f868859eb728010dea3e355b0c55d0f57cf9
+- type-equality-1@sha256:aeb9c44abf5d2edf52caff114a7da565d8328fa84bbe194828e4355ea85bf5b3
 - git:
     https://gitlab.com/morley-framework/morley.git
     # ^ CI cannot use ssh, so we use http clone here
   commit:
-    06bbe4e0cba9c1cf83bcf61b78666c6b5bb34c34 # master
+    3070876e3a6a362237d7f80df367df3eef45259f # master
+    # 06bbe4e0cba9c1cf83bcf61b78666c6b5bb34c34 # master
   subdirs:
     - .
     - lorentz-contracts

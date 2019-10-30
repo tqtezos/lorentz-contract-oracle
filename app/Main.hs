@@ -23,6 +23,9 @@ import qualified Tezos.Address as Tezos
 import Michelson.Typed.Scope
 import Util.IO
 import Michelson.Printer
+import Lorentz.CompileExts
+import Michelson.Typed.Instr (toFullContract)
+import Michelson.Optimizer
 
 import Named
 import Util.Named
@@ -96,10 +99,7 @@ data CmdLnArgs
       }
   | InitAllowance
       { heldToken :: !TokenAddr
-      , saleAddress :: !(ContractAddr Sale.Parameter)
-      }
-  | InitBalance
-      { wantedToken :: !TokenAddr
+      , wantedToken :: !TokenAddr
       , saleAddress :: !(ContractAddr Sale.Parameter)
       }
   | Purchase { price :: Price }
@@ -108,7 +108,7 @@ data CmdLnArgs
   | GetHeldToken { callback :: Address }
   | GetWallet { callback :: Address }
   | GetWantedToken { callback :: Address }
-  | SetTunnels { allowanceTunnel :: ContractAddr Natural, balanceTunnel :: ContractAddr Natural }
+  | SetTunnel { allowanceTunnel :: Address } -- ContractAddr Natural } -- , balanceTunnel :: ContractAddr Natural }
 
 
 -- | Parse a natural number argument, given its field name
@@ -170,14 +170,13 @@ argParser = Opt.subparser $ mconcat
   , printTunnelSubCmd
   , initSubCmd
   , initAllowanceSubCmd
-  , initBalanceSubCmd
   , purchaseSubCmd
   , updatePriceSubCmd
   , getPriceSubCmd
   , getHeldTokenSubCmd
   , getWalletSubCmd
   , getWantedTokenSubCmd
-  , setTunnelsSubCmd
+  , setTunnelSubCmd
   ]
   where
     mkCommandParser commandName parser desc =
@@ -199,9 +198,9 @@ argParser = Opt.subparser $ mconcat
       mkCommandParser "init"
       (Init <$>
         parseAddress "admin" <*>
-        parseContractAddr "held" <*>
+        parseAddress "held" <*>
         parseAddress "wallet" <*>
-        parseContractAddr "wanted" <*>
+        parseAddress "wanted" <*>
         parsePrice
       )
       "Initial storage for the sale contract"
@@ -209,18 +208,11 @@ argParser = Opt.subparser $ mconcat
     initAllowanceSubCmd =
       mkCommandParser "init-allowance"
       (InitAllowance <$>
-        parseContractAddr "held" <*>
+        parseAddress "held" <*>
+        parseAddress "wanted" <*>
         parseContractAddr "sale"
       )
       "Initial storage for the allowance tunnel contract"
-
-    initBalanceSubCmd =
-      mkCommandParser "init-balance"
-      (InitBalance <$>
-        parseContractAddr "wanted" <*>
-        parseContractAddr "sale"
-      )
-      "Initial storage for the balance tunnel contract"
 
     purchaseSubCmd =
       mkCommandParser "purchase"
@@ -252,11 +244,10 @@ argParser = Opt.subparser $ mconcat
       (GetWallet <$> parseAddress "callback")
       "get price"
 
-    setTunnelsSubCmd =
-      mkCommandParser "set-tunnels"
-      (SetTunnels <$>
-        parseContractAddr "held" <*>
-        parseContractAddr "wanted")
+    setTunnelSubCmd =
+      mkCommandParser "set-tunnel"
+      (SetTunnel <$>
+        parseAddress "tunnel")
       "set proxies"
 
 programInfo :: Opt.ParserInfo CmdLnArgs
@@ -283,9 +274,15 @@ usageDoc =
     , linebreak
     , "EXAMPLE:"
     , linebreak
-    , "  lorentz-contract-sale ManagedLedger --help"
+    , "  lorentz-contract-sale COMMAND --help"
     , linebreak
     ]
+
+lcwOptimize
+  :: (NiceParameter cp, NiceStorage st)
+  => LorentzCompilationWay cp st
+lcwOptimize = LorentzCompilationWay (toFullContract . optimize . compileLorentzContract)
+
 
 main :: IO ()
 main = do
@@ -303,20 +300,17 @@ main = do
       \case
         Print mOutput forceOneLine ->
           maybe TL.putStrLn writeFileUtf8 mOutput $
-          printLorentzContract forceOneLine lcwDumb saleContract
+          printLorentzContract forceOneLine lcwOptimize saleContract
         PrintTunnel mOutput forceOneLine ->
           maybe TL.putStrLn writeFileUtf8 mOutput $
-          printLorentzContract forceOneLine lcwDumb $
+          printLorentzContract forceOneLine lcwOptimize $
           tunnelContract @Natural @Sale.Parameter
         Init {..} ->
           TL.putStrLn . printLorentzValue forceSingleLine $
           Sale.initialStorage adminAddress heldToken wallet wantedToken price
         InitAllowance {..} ->
           TL.putStrLn . printLorentzValue forceSingleLine $
-          Sale.allowanceTunnelStorage heldToken saleAddress
-        InitBalance {..} ->
-          TL.putStrLn . printLorentzValue forceSingleLine $
-          Sale.balanceTunnelStorage wantedToken saleAddress
+          Sale.allowanceTunnelStorage heldToken wantedToken saleAddress
         Purchase {..} ->
           TL.putStrLn . printLorentzValue forceSingleLine $
           Sale.Purchase price
@@ -343,8 +337,8 @@ main = do
           Sale.GetWantedToken $
           View () $
           ContractAddr callback
-        SetTunnels {..} ->
+        SetTunnel {..} ->
           TL.putStrLn . printLorentzValue forceSingleLine $
-          Sale.SetTunnels $
-          (Name .! allowanceTunnel, Name .! balanceTunnel)
+          Sale.SetTunnel $
+          (Name .! allowanceTunnel)
 

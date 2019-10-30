@@ -12,7 +12,7 @@
 {-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-{-# OPTIONS -Wno-missing-export-lists #-}
+{-# OPTIONS -Wno-missing-export-lists -Wno-unused-do-bind #-}
 
 module Lorentz.Contracts.Tunnel where
 
@@ -25,8 +25,8 @@ import Tezos.Core
 -- - Send only to `targetAddress`
 -- - Wrap the parameter for `targetAddress` using `wrapParameter`
 data Storage a cp = Storage
-  { senderAddress :: Address
-  , targetAddress :: ContractAddr cp
+  { senderAddress :: Lambda Address Address
+  , targetAddress :: Address -- ContractAddr cp
   , wrapParameter :: Lambda a cp
   } deriving stock Generic
     deriving anyclass IsoValue
@@ -45,11 +45,16 @@ tunnelContract = do
   dip $ do
     stGetField #senderAddress
     sender
-    assertEq $ mkMTextUnsafe "unexpected sender"
+    exec
+    drop
     stGetField #wrapParameter
   exec
   dip $ do
     stGetField #targetAddress
+    contract @cp
+    ifNone
+      (failUnexpected (mkMTextUnsafe "unexpected contract type"))
+      nop
     push $ unsafeMkMutez 0
   transferTokens
   dip nil
