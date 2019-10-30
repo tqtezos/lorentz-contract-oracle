@@ -114,6 +114,14 @@ class TezosClient
         'receipt' => self.get_receipt(operation_hash) }
     end
   end
+
+  def get_storage_cmd(contract_address)
+    "#{self.tezos_client_path} get contract storage for  #{contract_address}"
+  end
+
+  def get_storage(contract_address)
+    system_lines(self.get_storage_cmd(contract_address))
+  end
 end
 
 class LorentzContractParam
@@ -134,6 +142,14 @@ class LorentzContractParam
 
  def stack_path
    self.config['stack_path']
+ end
+
+ def stack_exec
+   if self.stack_path.nil?
+     ""
+   else
+     "#{self.stack_path} exec -- "
+   end
  end
 
  def initialize(config, command, storage_command, storage_params, burn_cap)
@@ -317,7 +333,7 @@ class LorentzContractParam
 
  def print()
    @contract_code || (@contract_code = self.in_path do
-       system_line "#{self.stack_path} exec -- #{@command} --oneline"
+       system_line "#{self.stack_exec}#{@command} --oneline"
      end
    )
  end
@@ -335,7 +351,7 @@ class LorentzContractParam
      end.join(' ')
 
      self.in_path do
-       system_line("#{self.stack_path} exec -- #{@storage_command} " + storage_param_args)
+       system_line("#{self.stack_exec}#{@storage_command} " + storage_param_args)
      end
    )
  end
@@ -385,6 +401,19 @@ end
 
 
 if __FILE__ == $0
+  if ARGV[1]&.strip == 'info'
+    file_path = ARGV[0]
+    originated_contracts_path = LorentzContractParam.originated_contracts_path(file_path)
+    originated_yaml = YAML.load(File.read(originated_contracts_path))
+    originated_yaml['originated'].each do |contract|
+      p contract
+      contract_address = contract[1]['address']
+      base_config = originated_yaml['config']['base-config']
+      tezos_client = TezosClient.new(base_config['tezos_client_path'], base_config['user_address'])
+      tezos_client.get_storage(contract_address).to_a
+    end
+  end
+
   LorentzContractParam.from_yaml ARGV[0]
 end
 

@@ -1,0 +1,112 @@
+---
+config:
+  base-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param"
+    stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param/stack"
+  sale-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale"
+    stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale/stack"
+  base-config-bob:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1hUXU4DPHPyrEEekqhmEEJvdCpB2gP4qtp
+    param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param"
+    stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param/stack"
+  sale-config-bob:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1hUXU4DPHPyrEEekqhmEEJvdCpB2gP4qtp
+    param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale"
+    stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale/stack"
+originated:
+  Token1:
+    address: KT1Axrbr1nqrQcBQqyAYdX68fABga5vF9dKQ
+    config: "$base-config"
+  Token2:
+    address: KT1WiBL3Yga7boCdML8tMDBgeWMQUSWdFrcd
+    config: "$base-config"
+  Sale1:
+    address: KT1PDSQsVjPDbPpSou1wEN34nx5HXN9nPvDP
+    config: "$sale-config"
+  SandyPostSaleBalance:
+    address: KT1KoZPz1VaWPMqTfLXBngkbhaoDSZwerZXx
+    config: "$base-config"
+  SandyBobPostSaleBalance:
+    address: KT1TWfdSYs2B1rkvDLyjoKP1ptGaFMarf5t6
+    config: "$base-config"
+  SandyPostSaleBalanceLeft:
+    address: KT1KQWn7ybyfkfYRrf1BFcDug6xozJNGSWKm
+    config: "$base-config"
+  SandyBobPostSaleBalanceLeft:
+    address: KT1W4rQriXj9eyw3CxptkAZuQANrJSXV4hMn
+    config: "$base-config"
+ran:
+  MintSandy1:
+    contract: "$Token1"
+    parameters:
+      to: "$Sandy"
+      value: '10'
+    operation_hash: opH5umc2E4j6NVdMTaMeBZUPqFK24ombL6VKYwB5MaG7iKtEPdb
+    config: "$base-config"
+  AllowanceSandySale1:
+    contract: "$Token1"
+    parameters:
+      spender: "$Sale1"
+      value: '10'
+    operation_hash: ooTascvwCQT3eXWrGhDTepKmWwdjsVQxa6g5AgYz7KpgeSwowKQ
+    config: "$base-config"
+  MintSandyBob1:
+    contract: "$Token2"
+    parameters:
+      to: "$SandyBob"
+      value: '10'
+    operation_hash: onpQ87otmUugqwSnCLQPPxaxqgiV5s57GtZkjJg7pWL6VK5sryi
+    config: "$base-config"
+  AllowanceSandyBobSale1:
+    contract: "$Token2"
+    parameters:
+      spender: "$Sale1"
+      value: '10'
+    operation_hash: ongv8PD6UvXZRHR7VcmmL6HBhPVqZXsNs8JrQnhZABn2nmGi6TV
+    config: "$base-config-bob"
+  PurchaseSale1:
+    contract: "$Sale1"
+    parameters:
+      held-price: '1'
+      wanted-price: '1'
+    operation_hash: opK6dAiLbnDHger2SpGB7zgSF3tU3VQecn5iYE4T7AWGghb158r
+    config: "$sale-config-bob"
+  SandyPostSaleGetBalance:
+    contract: "$Token2"
+    parameters:
+      account: "$Sandy"
+      callback-contract: "$SandyPostSaleBalance"
+    operation_hash: ooUNh7sDcGubXxNacCFN3j9AYAMd21JQXZUmzmfV6znPsGXmsK9
+    config: "$base-config"
+  SandyBobPostSaleGetBalance:
+    contract: "$Token1"
+    parameters:
+      account: "$SandyBob"
+      callback-contract: "$SandyBobPostSaleBalance"
+    operation_hash: opYcoScN9TPHn5N652hxU7jTMkNaWvBGG4qFUDGmGHqHNRvRzG5
+    config: "$base-config"
+  SandyPostSaleGetBalanceLeft:
+    contract: "$Token1"
+    parameters:
+      account: "$Sandy"
+      callback-contract: "$SandyPostSaleBalanceLeft"
+    operation_hash: onwsHUSqhvqBNkuJhxtgJTmWbYduJ6mW6KJWBGKEwnnEN3wCm3j
+    config: "$base-config"
+  SandyBobPostSaleGetBalanceLeft:
+    contract: "$Token2"
+    parameters:
+      account: "$SandyBob"
+      callback-contract: "$SandyBobPostSaleBalanceLeft"
+    operation_hash: ongBdRTaTjVVZBto9byDBWgPpEYQmML4Gs69tZamQwAjXYzfUgV
+    config: "$base-config"

@@ -21,10 +21,7 @@
 module Lorentz.Contracts.Sale where
 
 import Lorentz
--- import Lorentz.CompileExts
 import Michelson.Text
--- import Michelson.Typed.Instr (toFull
--- import Michelson.Optimizer
 import Michelson.Typed.Arith
 import Tezos.Core
 import qualified Lorentz.Contracts.ManagedLedger.Babylon as Babylon
@@ -33,7 +30,7 @@ import qualified Lorentz.Contracts.ManagedLedger.Types as Babylon
 import qualified Lorentz.Contracts.Tunnel as Tunnel
 
 
--- | Stub instance
+-- | Stub (`undefined`) instance
 instance TypeHasDoc Babylon.Parameter where
   typeDocName _ = "Babylon parameter"
   typeDocMdReference _ = customTypeDocMdReference ("Babylon.Parameter", undefined) []
@@ -61,42 +58,13 @@ fromPrice = do
   coerce_
   unpair
 
--- | Set the tunnels
-type SetTunnel = ("allowanceTunnel" :! Address) -- ContractAddr Natural)
-
 data Parameter =
     Purchase !Price
-  -- | WaitForAllowance !Natural
-  -- | WaitForBalance !Natural
   | UpdatePrice !Price
   | GetPrice !(View () Price)
   | GetHeldToken !(View () TokenAddr)
   | GetWallet !(View () Address)
   | GetWantedToken !(View () TokenAddr)
-  -- | SetTunnel !SetTunnel
-  deriving stock Generic
-  deriving anyclass IsoValue
-
--- | The state when waiting for balance
-type WaitForBalanceS = ("callerSource" :! Address, "allowanceBalance" :! Natural)
-
-toWaitForBalanceS :: forall s. Address : Natural : s :-> WaitForBalanceS : s
-toWaitForBalanceS = do
-  pair
-  coerce_
-
-fromWaitForBalanceS :: forall s. WaitForBalanceS : s :-> Address : Natural : s
-fromWaitForBalanceS = do
-  coerce_
-  unpair
-
--- | `Ready` if not in the middle of a callback
---
--- `WaitingForAllowance` when waiting for `getAllowance`, etc.
-data CallbackState =
-    Ready
-  | WaitingForAllowance { callerSource :: !Address }
-  | WaitingForBalance !WaitForBalanceS
   deriving stock Generic
   deriving anyclass IsoValue
 
@@ -105,52 +73,10 @@ data Storage = Storage
   { adminAddress :: !Address
   , heldToken :: !TokenAddr
   , wallet :: !Address
-  , allowanceTunnel :: !(Maybe Address) -- (ContractAddr Natural))
   , wantedToken :: !TokenAddr
-  -- , balanceTunnel :: !(Maybe (ContractAddr Natural))
   , price :: !Price
-  , callbackState :: !CallbackState
   } deriving stock Generic
     deriving anyclass IsoValue
-
-
-
-
--- | @initialStorage adminAddress' heldToken' wallet' wantedToken' price'@
-initialStorage :: Address -> TokenAddr -> Address -> TokenAddr -> Price -> Storage
-initialStorage adminAddress' heldToken' wallet' wantedToken' price' =
-  Storage
-    adminAddress'
-    heldToken'
-    wallet'
-    Nothing
-    wantedToken'
-    -- Nothing
-    price'
-    Ready
-
-oneOf :: (KnownValue a, NoOperation a, NoBigMap a, IfCmpXConstraints a Eq')
-      => [a]
-      -> Lambda a a
-oneOf [] =
-  failUnexpected (mkMTextUnsafe "not allowed")
-oneOf (x:xs) = do
-  dup
-  push x
-  ifEq
-    nop
-    (oneOf xs)
-
--- | @allowanceTunnelStorage heldToken' saleAddress'@
-allowanceTunnelStorage :: TokenAddr -> TokenAddr -> ContractAddr Parameter -> Tunnel.Storage Natural Parameter
-allowanceTunnelStorage heldToken' wantedToken' (ContractAddr saleAddress') =
-  Tunnel.Storage
-    (oneOf [heldToken', wantedToken'])
-    saleAddress'
-    (wrap_ #cWaitForAllowance)
-
-    -- assertEq $ mkMTextUnsafe "unexpected sender"
-
 
 instance HasFieldOfType Storage name field =>
          StoreHasField Storage name field where
@@ -161,120 +87,16 @@ type StorageC store = StorageContains store
   [ "adminAddress" := Address
   , "heldToken" := TokenAddr
   , "wallet" := Address
-  , "allowanceTunnel" := Maybe Address -- (ContractAddr Natural)
   , "wantedToken" := TokenAddr
-  -- , "balanceTunnel" := Maybe (ContractAddr Natural)
   , "price" := Price
-  , "callbackState" := CallbackState
   ]
 
 -- | Ensure is admin before continuing
 withAuthorizedAdmin :: forall st a b.
   StorageC st => st : a :-> st : b -> st : a :-> st : b
 withAuthorizedAdmin f = do
-  -- doc $ DRequireRole "administrator"
   stGetField #adminAddress; sender; eq
   if_ f (failCustom_ #senderIsNotAdmin)
-
--- | Ensure tunnels set before continuing
-assertTunnel :: forall st s. StorageC st => st : s :-> st : s
-assertTunnel = do
-  stGetField #allowanceTunnel
-  ifNone
-    (failUnexpected (mkMTextUnsafe "no tunnel"))
-    (do
-      drop
-      -- stGetField #balanceTunnel
-      -- ifNone
-      --   (failUnexpected (mkMTextUnsafe "no balance proxy"))
-      --   drop
-    )
-
--- | Unsafely get allowance tunnel: will fail if unset
-unsafeAllowanceTunnel :: forall st s. StorageC st => st : s :-> ContractAddr Natural : st : s
-unsafeAllowanceTunnel = do
-  stGetField #allowanceTunnel
-  ifNone
-    (failUnexpected (mkMTextUnsafe "no tunnel"))
-    nop
-  contract @Natural
-  ifNone
-    (failUnexpected (mkMTextUnsafe "expected Natural"))
-    nop
-
--- | Ensure the `sender` is the allowance tunnel
-assertAllowanceTunnel :: forall st s. StorageC st => st : s :-> st : s
-assertAllowanceTunnel = do
-  unsafeAllowanceTunnel
-  address
-  sender
-  assertEq (mkMTextUnsafe "expected allowance proxy")
-
--- | Assert in the `Ready` state
-assertReady :: forall st s. StorageC st => st : s :-> st : s
-assertReady = do
-  stGetField #callbackState
-  caseT
-    ( #cReady /-> nop
-    , #cWaitingForAllowance /-> failUnexpected (mkMTextUnsafe "waiting for allowance")
-    , #cWaitingForBalance /-> failUnexpected (mkMTextUnsafe "waiting for balance")
-    )
-
--- | Assert in the `WaitingForAllowance` state
-assertWaitingForAllowance :: forall st s. StorageC st => st : s :-> Address : st : s
-assertWaitingForAllowance = do
-  stGetField #callbackState
-  caseT
-    ( #cReady /->
-        failUnexpected (mkMTextUnsafe "got allowance but ready")
-    , #cWaitingForAllowance /-> do
-        dup
-        dip $ do
-          source
-          assertEq (mkMTextUnsafe "unexpected source")
-          assertAllowanceTunnel
-    , #cWaitingForBalance /->
-        failUnexpected (mkMTextUnsafe "got allowance but want balance")
-    )
-
--- | Assert in the `WaitingForBalance` state
-assertWaitingForBalance :: forall st s. StorageC st => st : s :-> WaitForBalanceS : st : s
-assertWaitingForBalance = do
-  stGetField #callbackState
-  caseT
-    ( #cReady /->
-        failUnexpected (mkMTextUnsafe "got balance but ready")
-    , #cWaitingForAllowance /->
-        failUnexpected (mkMTextUnsafe "got balance but want allowance")
-    , #cWaitingForBalance /-> do
-        dup
-        dip $ do
-          fromWaitForBalanceS
-          dip drop
-          source
-          assertEq (mkMTextUnsafe "unexpected source")
-          -- assertBalanceTunnel
-          assertAllowanceTunnel
-    )
-
--- | Enter the `Ready` state
-ready_ :: forall st s. StorageC st => st : s :-> st : s
-ready_ = do
-  push Ready
-  stSetField #callbackState
-
--- | Enter the `WaitingForAllowance` state
-waitForAllowance_ :: forall st s. StorageC st => Address : st : s :-> st : s
-waitForAllowance_ = do
-  wrap_ #cWaitingForAllowance
-  stSetField #callbackState
-
--- | Enter the `WaitingForBalance` state
-waitForBalance_ :: forall st s. StorageC st => WaitForBalanceS : st : s :-> st : s
-waitForBalance_ = do
-  wrap_ #cWaitingForBalance
-  stSetField #callbackState
-
 
 -- | Fixed price offer contract:
 -- Will accept any trade of held token for wanted token, up to size of pool (in wallet)
@@ -288,14 +110,11 @@ saleContract = contractName "Managed Ledger Sale" $ do
   unpair
   entryCase @Parameter (Proxy @PlainEntryPointsKind)
     ( #cPurchase /-> purchase
-    , #cWaitForAllowance /-> waitForAllowance
-    , #cWaitForBalance /-> waitForBalance
     , #cUpdatePrice /-> updatePrice
     , #cGetPrice /-> getPrice
     , #cGetHeldToken /-> getHeldToken
     , #cGetWallet /-> getWallet
     , #cGetWantedToken /-> getWantedToken
-    , #cSetTunnel /-> setTunnel
     )
 
 mkView :: forall a r s. a : ContractAddr r : s :-> View a r : s
@@ -303,87 +122,16 @@ mkView = do
   pair
   coerce_ @(a, ContractAddr r) @(View a r)
 
--- | Call @getAllowance@ on the @held@ token contract
-getAllowance_ :: forall st s. StorageC st => st : s :-> Operation : st : s
-getAllowance_ = do
-  self
-  address
-  dip $ do
-    stGetField #wallet
-    dip $ do
-      unsafeAllowanceTunnel
-  pair
-  coerce_
-  mkView @Babylon.GetAllowanceParams @Natural
-  wrap_ #cGetAllowance
-  dip $ do
-    push $ unsafeMkMutez 0
-    dip $ do
-      stGetField #heldToken
-      contract @Babylon.Parameter
-      ifNone
-        (failUnexpected (mkMTextUnsafe "expected Babylon Parameter"))
-        nop
-  transferTokens
-
--- | Call @getBalance@ on the @wanted@ token contract
-getBalance_ :: forall st s. StorageC st => st : s :-> Operation : st : s
-getBalance_ = do
-  self
-  address
-  dip $ do
-    -- unsafeBalanceTunnel
-    unsafeAllowanceTunnel
-  mkView @Address @Natural
-  coerce_
-  wrap_ #cGetBalance
-  dip $ do
-    push $ unsafeMkMutez 0
-    dip $ do
-      stGetField #wantedToken
-      contract @Babylon.Parameter
-      ifNone
-        (failUnexpected (mkMTextUnsafe "expected Babylon Parameter"))
-        nop
-  transferTokens
-
 -- | Transfer from the wallet holding the @held@ token
-transferFromWallet :: forall st s. StorageC st => Address : Natural : st : s :-> Operation : st : s
-transferFromWallet = do
-  dip $ do
-    dip $ do
-      stGetField #wallet
-    swap
-    pair
+transferFrom :: forall s. Address : Address : Natural : Address : s :-> Operation : s
+transferFrom = do
+  dip pair
   pair
   coerce_ @(Address, (Address, Natural)) @Babylon.TransferParams
   wrap_ #cTransfer
   dip $ do
     push $ unsafeMkMutez 0
     dip $ do
-      stGetField #heldToken
-      contract @Babylon.Parameter
-      ifNone
-        (failUnexpected (mkMTextUnsafe "expected Babylon Parameter"))
-        nop
-  transferTokens
-
--- | Transfer from self, holding the @wanted@ token
-transferFromSelf :: forall st s. StorageC st => Address : Natural : st : s :-> Operation : st : s
-transferFromSelf = do
-  dip $ do
-    dip $ do
-      self
-      address
-    swap
-    pair
-  pair
-  coerce_ @(Address, (Address, Natural)) @Babylon.TransferParams
-  wrap_ #cTransfer
-  dip $ do
-    push $ unsafeMkMutez 0
-    dip $ do
-      stGetField #wantedToken
       contract @Babylon.Parameter
       ifNone
         (failUnexpected (mkMTextUnsafe "expected Babylon Parameter"))
@@ -405,185 +153,43 @@ checkPrice = do
       assertEq (mkMTextUnsafe "unexpected wanted price")
     assertEq (mkMTextUnsafe "unexpected held price")
 
--- | `ifLe`, but keep the arugments
-ifLe_
-  :: (IfCmpXConstraints a Le)
-  => (a & a & s :-> s') -> (a & a & s :-> s') -> (a & a & s :-> s')
-ifLe_ l r =
-  do
-    pair
-    dup
-    dip unpair
-    unpair
-    ifLe l r
-
--- | If balances don't match price, return tokens to purchaser
--- otherwise, rescale number of purchased (held) tokens to buying amount
---
--- @
---  [cash in hand, tokens to buy, purchaser]
--- @
-checkPurchasePrice :: forall st. StorageC st => [Natural, Natural, Address, st] :-> [Either MText (Natural, Natural, Address), st]
-checkPurchasePrice = do
-  swap
-  dip $ do
-    dup
-    dip $ do
-      -- [cash in hand, purchaser, st]
-      dip $ do
-        swap
-        stGetField #price
-      -- [cash in hand, price, st, purchaser]
-      calculatePurchasedTokens
-      -- [purchased tokens, st, purchaser]
-    -- [cash in hand, purchased tokens, st, purchaser]
-    swap
-    -- [purchased tokens, cash in hand, st, purchaser]
-  -- [tokens to buy, purchased tokens, cash in hand, st, purchaser]
-  swap
-  -- [purchased tokens, tokens to buy, cash in hand, st, purchaser]
-  ifNone
-    (do
-      -- "refund" cash in hand
-      -- [tokens to buy, cash in hand, st, purchaser]
-      drop >> drop >> swap >> drop
-      push (mkMTextUnsafe "cash in hand not an exact multiple of wanted price")
-      left
-    )
-    (do -- ensure enough (le) tokens (else refund); return new tokens to buy
-      -- [purchased tokens, tokens to buy, cash in hand, st, purchaser]
-      -- (push False)
-      ifLe_
-        (do
-          -- [purchased tokens, tokens to buy, cash in hand, st, purchaser]
-          dip $ do
-            drop
-            dip swap
-          -- [purchased tokens, cash in hand, purchaser, st]
-          dip pair
-          pair
-          coerce_ @(Natural, (Natural, Address)) @(Natural, Natural, Address)
-          right
-        )
-        (do
-          -- process refund
-          drop >> drop >> drop >> swap >> drop
-          push (mkMTextUnsafe "insufficient tokens to buy")
-          left
-        )
-    )
-
--- | Calculate how many tokens were purchased, or fail
---
--- @
---  [cash in hand, price, s]
--- @
---
--- @
--- if mod cash_in_hand wantedPrice == 0
---  then Just $ div cash_in_hand wantedPrice
---  else Nothing
--- @
-calculatePurchasedTokens :: forall s. Natural : Price : s :-> Maybe Natural : s
-calculatePurchasedTokens = do
-  dip $ do
-    fromPrice
-    swap
-  ediv
-  ifNone
-    (do
-      drop
-      none
-    )
-    (do
-      unpair
-      swap
-      -- [mod, div, held number]
-      -- stackType @[Natural, Natural, Natural, s]
-      push 0
-      ifEq -- if (mod sentTokens wantedTokenPrice == 0)
-        (do
-          mul
-          some
-        )
-        (do
-          drop
-          drop
-          none
-        )
-    )
-
+-- type Price = ("held" :! Natural, "wanted" :! Natural)
 -- | Purchase using the transferred tokens
 purchase :: forall st. StorageC st => Entrypoint Price st
 purchase = do
-  checkPrice
   dip $ do
-    assertTunnel
-    assertReady
-  drop
-  getAllowance_
-  dip $ do
-    source
-    waitForAllowance_
-    nil
-  cons
-  pair
-
--- | Wait for the @getAllowance@ callback
-waitForAllowance :: forall st. StorageC st => Entrypoint Natural st
-waitForAllowance = do
-  dip $ do
-    assertTunnel
-    assertWaitingForAllowance
+    stGetField #wallet
   swap
-  toWaitForBalanceS
   dip $ do
-    getBalance_
+    checkPrice
+    fromPrice
+    sender
+  pair
+  -- [(wallet, sender), heldPrice, wantedPrice]
+  stackType @[(Address, Address), Natural, Natural, st]
+  dup
+  dip $ do
+    dip $ dip $ do
+      dip $ do
+        stGetField #heldToken
+        -- _
+        dip $ do
+          stGetField #wantedToken
+      swap
+    -- [(wallet, sender), heldPrice, heldToken, wantedPrice, wantedToken, store]
+    stackType @[(Address, Address), Natural, Address, Natural, Address, st]
+    unpair
+    transferFrom
+  swap
+  dip $ do
+    stackType @[(Address, Address), Natural, Address, st]
+    unpair
+    swap
+    -- [sender, wallet, wantedPrice, wantedToken, store]
+    transferFrom
     dip nil
     cons
-    swap
-  waitForBalance_
-  swap
-  pair
-
--- | Wait for the @getBalance@ callback
-waitForBalance :: forall st. StorageC st => Entrypoint Natural st
-waitForBalance = do
-  dip $ do
-    assertTunnel
-    assertWaitingForBalance
-    fromWaitForBalanceS
-    swap
-  -- [tokens bought with, bought tokens, purchaser address, storage]
-  -- stackType @[Natural, Natural, Address, st]
-  checkPurchasePrice
-  ifLeft
-    (do
-      failUsing (mkMTextUnsafe "checking allowances and price failed")
-    )
-    (do
-      coerce_ @(Natural, Natural, Address) @(Natural, (Natural, Address))
-      unpair
-      dip unpair
-      dip $ do
-        swap
-        -- [purchaser address, bought tokens, storage]
-        stackType @[Address, Natural, st]
-        transferFromWallet
-        swap
-        stackType @[st, Operation]
-      -- stackType @[Natural, st, Operation]
-      dip $ do
-        stGetField #wallet
-      swap
-      transferFromSelf
-      dip $ do
-        swap
-        dip nil
-        cons
-      cons
-    )
-  dip ready_
+  cons
   pair
 
 -- | Update the `Price`
@@ -615,16 +221,4 @@ getWallet = do
 getWantedToken :: forall st. StorageC st => Entrypoint (View () TokenAddr) st
 getWantedToken = do
   view_ (do cdr; stToField #wantedToken)
-
--- | Set the tunnel contracts
-setTunnel :: forall st. StorageC st => Entrypoint SetTunnel st
-setTunnel = do
-  swap
-  withAuthorizedAdmin $ do
-    swap
-    coerce_ @SetTunnel @Address -- (ContractAddr Natural)
-    some
-    stSetField #allowanceTunnel
-  nil
-  pair
 
