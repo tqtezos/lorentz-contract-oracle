@@ -5,14 +5,14 @@ name:                lorentz-contracts-sale
 version:             0.1.0.0
 github:              "tqtezos/lorentz-contracts-sale"
 license:             BSD3
-author:              "Michael J. Klein"
+author:              "Michael J. Klein TQ Tezos"
 maintainer:          "michael@tqgroup.io"
-copyright:           "2019 Michael J. Klein"
+copyright:           "2019 Michael J. Klein TQ Tezos"
 
 extra-source-files:
 - README.md
 
-description:         Please see the README on GitHub at <https://github.com/githubuser/lorentz-contracts-sale#readme>
+description:         Please see the README on GitHub at <https://github.com/tqtezos/lorentz-contracts-sale#readme>
 
 library:
   <<: *lorentz-lib-common

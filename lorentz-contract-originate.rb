@@ -450,4 +450,3 @@ end
   # # print the originated contract hash
   # p managed_ledger.originate(tezos_client)
 
-
