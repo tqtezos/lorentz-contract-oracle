@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+~/Downloads/stack-1.9.3-osx-x86_64/stack "$@"
