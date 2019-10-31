@@ -38,7 +38,7 @@ class Sale
   end
 
   def self.sale_name(held, wanted, held_price, wanted_price)
-    "Sale#{held}_#{wanted}_#{held_price}_#{wanted_price}"
+    "Sale#{held}_#{self.token_name(wanted)}_#{self.token_name(held_price)}_#{wanted_price}"
   end
 
   def self.originate_sale(held, wanted, held_price, wanted_price)

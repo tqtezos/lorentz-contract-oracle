@@ -777,7 +777,7 @@ do:
       contract: $Token1
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale1_Token2_1_2
+        spender: $SaleToken1_Token2_1_2
         value: 1600
       burn_cap: '0.031'
   - run:
@@ -786,7 +786,7 @@ do:
       contract: $Token1
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale1_Token3_1_2
+        spender: $SaleToken1_Token3_1_2
         value: 1600
       burn_cap: '0.031'
   - run:
@@ -795,7 +795,7 @@ do:
       contract: $Token2
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale2_Token4_1_2
+        spender: $SaleToken2_Token4_1_2
         value: 800
       burn_cap: '0.031'
   - run:
@@ -804,7 +804,7 @@ do:
       contract: $Token2
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale2_Token5_1_2
+        spender: $SaleToken2_Token5_1_2
         value: 800
       burn_cap: '0.031'
   - run:
@@ -813,7 +813,7 @@ do:
       contract: $Token4
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale4_Token8_1_2
+        spender: $SaleToken4_Token8_1_2
         value: 400
       burn_cap: '0.031'
   - run:
@@ -822,7 +822,7 @@ do:
       contract: $Token4
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale4_Token9_1_2
+        spender: $SaleToken4_Token9_1_2
         value: 400
       burn_cap: '0.031'
   - run:
@@ -831,7 +831,7 @@ do:
       contract: $Token8
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale8_Token16_1_2
+        spender: $SaleToken8_Token16_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -840,7 +840,7 @@ do:
       contract: $Token8
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale8_Token17_1_2
+        spender: $SaleToken8_Token17_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -849,7 +849,7 @@ do:
       contract: $Token9
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale9_Token18_1_2
+        spender: $SaleToken9_Token18_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -858,7 +858,7 @@ do:
       contract: $Token9
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale9_Token19_1_2
+        spender: $SaleToken9_Token19_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -867,7 +867,7 @@ do:
       contract: $Token5
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale5_Token10_1_2
+        spender: $SaleToken5_Token10_1_2
         value: 400
       burn_cap: '0.031'
   - run:
@@ -876,7 +876,7 @@ do:
       contract: $Token5
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale5_Token11_1_2
+        spender: $SaleToken5_Token11_1_2
         value: 400
       burn_cap: '0.031'
   - run:
@@ -885,7 +885,7 @@ do:
       contract: $Token10
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale10_Token20_1_2
+        spender: $SaleToken10_Token20_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -894,7 +894,7 @@ do:
       contract: $Token10
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale10_Token21_1_2
+        spender: $SaleToken10_Token21_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -903,7 +903,7 @@ do:
       contract: $Token11
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale11_Token22_1_2
+        spender: $SaleToken11_Token22_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -912,7 +912,7 @@ do:
       contract: $Token11
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale11_Token23_1_2
+        spender: $SaleToken11_Token23_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -921,7 +921,7 @@ do:
       contract: $Token3
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale3_Token6_1_2
+        spender: $SaleToken3_Token6_1_2
         value: 800
       burn_cap: '0.031'
   - run:
@@ -930,7 +930,7 @@ do:
       contract: $Token3
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale3_Token7_1_2
+        spender: $SaleToken3_Token7_1_2
         value: 800
       burn_cap: '0.031'
   - run:
@@ -939,7 +939,7 @@ do:
       contract: $Token6
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale6_Token12_1_2
+        spender: $SaleToken6_Token12_1_2
         value: 400
       burn_cap: '0.031'
   - run:
@@ -948,7 +948,7 @@ do:
       contract: $Token6
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale6_Token13_1_2
+        spender: $SaleToken6_Token13_1_2
         value: 400
       burn_cap: '0.031'
   - run:
@@ -957,7 +957,7 @@ do:
       contract: $Token12
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale12_Token24_1_2
+        spender: $SaleToken12_Token24_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -966,7 +966,7 @@ do:
       contract: $Token12
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale12_Token25_1_2
+        spender: $SaleToken12_Token25_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -975,7 +975,7 @@ do:
       contract: $Token13
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale13_Token26_1_2
+        spender: $SaleToken13_Token26_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -984,7 +984,7 @@ do:
       contract: $Token13
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale13_Token27_1_2
+        spender: $SaleToken13_Token27_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -993,7 +993,7 @@ do:
       contract: $Token7
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale7_Token14_1_2
+        spender: $SaleToken7_Token14_1_2
         value: 400
       burn_cap: '0.031'
   - run:
@@ -1002,7 +1002,7 @@ do:
       contract: $Token7
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale7_Token15_1_2
+        spender: $SaleToken7_Token15_1_2
         value: 400
       burn_cap: '0.031'
   - run:
@@ -1011,7 +1011,7 @@ do:
       contract: $Token14
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale14_Token28_1_2
+        spender: $SaleToken14_Token28_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -1020,7 +1020,7 @@ do:
       contract: $Token14
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale14_Token29_1_2
+        spender: $SaleToken14_Token29_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -1029,7 +1029,7 @@ do:
       contract: $Token15
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale15_Token30_1_2
+        spender: $SaleToken15_Token30_1_2
         value: 200
       burn_cap: '0.031'
   - run:
@@ -1038,6 +1038,6 @@ do:
       contract: $Token15
       command: lorentz-contract-param ManagedLedgerBabylon-approve
       parameters:
-        spender: $Sale15_Token31_1_2
+        spender: $SaleToken15_Token31_1_2
         value: 200
       burn_cap: '0.031'
