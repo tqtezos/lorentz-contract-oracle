@@ -40,7 +40,7 @@ do:
       address:
         tz1hUXU4DPHPyrEEekqhmEEJvdCpB2gP4qtp
 
-  - originate:
+  - originate: &originate-token
       alias: Token1
       config: $base-config
       command: "lorentz-contract print --name ManagedLedger"
@@ -50,13 +50,8 @@ do:
       burn_cap: 4.675
 
   - originate:
+      <<: *originate-token
       alias: Token2
-      config: $base-config
-      command: "lorentz-contract print --name ManagedLedger"
-      storage_command: "lorentz-contract-storage ManagedLedgerBabylon"
-      initial_storage:
-        admin: $Sandy
-      burn_cap: 4.675
 
   - originate:
       alias: Sale1
@@ -72,7 +67,7 @@ do:
         wanted-price: "1"
       burn_cap: "1.749"
 
-  - run:
+  - run: &mint
       alias: MintSandy1
       config: $base-config
       contract: $Token1
@@ -82,7 +77,7 @@ do:
         value: "10"
       burn_cap: "0.074"
 
-  - run:
+  - run: &approve
       alias: AllowanceSandySale1
       config: $base-config
       contract: $Token1
@@ -93,26 +88,21 @@ do:
       burn_cap:  "0.031"
 
   - run:
+      <<: *mint
       alias: MintSandyBob1
-      config: $base-config
       contract: $Token2
-      command: "lorentz-contract-param ManagedLedgerBabylon-mint"
       parameters:
         to: $SandyBob
-        value: "10"
-      burn_cap:  "0.074"
 
   - run:
+      <<: *approve
       alias: AllowanceSandyBobSale1
       config: $base-config-bob
       contract: $Token2
-      command: "lorentz-contract-param ManagedLedgerBabylon-approve"
       parameters:
         spender: $Sale1
-        value: "10"
-      burn_cap:  "0.031"
 
-  - run:
+  - run: &purchase
       alias: PurchaseSale1
       config: $sale-config-bob
       contract: $Sale1
@@ -122,7 +112,7 @@ do:
         wanted-price: "1"
       burn_cap:  "0.148"
 
-  - originate:
+  - originate: &originate-nat-storage
       alias: SandyPostSaleBalance
       config: $base-config
       command: "lorentz-contract print --name NatStorageContract"
@@ -132,33 +122,18 @@ do:
       burn_cap:  "0.295"
 
   - originate:
+      <<: *originate-nat-storage
       alias: SandyBobPostSaleBalance
-      config: $base-config
-      command: "lorentz-contract print --name NatStorageContract"
-      storage_command: "ruby -e 'puts ARGV[1]' -- "
-      initial_storage:
-        initial: "0"
-      burn_cap:  "0.295"
 
   - originate:
+      <<: *originate-nat-storage
       alias: SandyPostSaleBalanceLeft
-      config: $base-config
-      command: "lorentz-contract print --name NatStorageContract"
-      storage_command: "ruby -e 'puts ARGV[1]' -- "
-      initial_storage:
-        initial: "0"
-      burn_cap:  "0.295"
 
   - originate:
+      <<: *originate-nat-storage
       alias: SandyBobPostSaleBalanceLeft
-      config: $base-config
-      command: "lorentz-contract print --name NatStorageContract"
-      storage_command: "ruby -e 'puts ARGV[1]' -- "
-      initial_storage:
-        initial: "0"
-      burn_cap:  "0.295"
 
-  - run:
+  - run: &get-balance
       alias: SandyPostSaleGetBalance
       config: $base-config
       contract: $Token2
@@ -169,32 +144,26 @@ do:
       burn_cap:  "0.000001"
 
   - run:
+      <<: *get-balance
       alias: SandyBobPostSaleGetBalance
-      config: $base-config
       contract: $Token1
-      command: "lorentz-contract-param ManagedLedgerBabylon-getBalance"
       parameters:
         account: $SandyBob
         callback-contract: $SandyBobPostSaleBalance
-      burn_cap:  "0.000001"
 
   - run:
+      <<: *get-balance
       alias: SandyPostSaleGetBalanceLeft
-      config: $base-config
       contract: $Token1
-      command: "lorentz-contract-param ManagedLedgerBabylon-getBalance"
       parameters:
         account: $Sandy
         callback-contract: $SandyPostSaleBalanceLeft
-      burn_cap:  "0.000001"
 
   - run:
+      <<: *get-balance
       alias: SandyBobPostSaleGetBalanceLeft
-      config: $base-config
       contract: $Token2
-      command: "lorentz-contract-param ManagedLedgerBabylon-getBalance"
       parameters:
         account: $SandyBob
         callback-contract: $SandyBobPostSaleBalanceLeft
-      burn_cap:  "0.000001"
 

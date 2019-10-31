@@ -134,7 +134,6 @@ class LorentzContractParam
  end
 
  attr_accessor :config, :command, :storage_command, :storage_params, :burn_cap
- # :path, :stack_path, :contract_name, :storage_name,
 
  def path
    self.config['param_path']
@@ -190,7 +189,6 @@ class LorentzContractParam
       !self.originated_contracts[contract_alias]&.[]('address').nil?
      puts "#{contract_alias} already originated: #{self.originated_contracts[contract_alias]}"
      existing_origination = self.originated_contracts[contract_alias]
-     # existing_origination.delete 'address'
      unless origination['config'] == existing_origination['config']
        raise "#{contract_alias} originated with:\n#{existing_origination} \nbut found #{origination}"
      end
@@ -341,8 +339,8 @@ class LorentzContractParam
  def storage(names)
    @storage_code || (@storage_code =
      storage_param_args = storage_params.to_a.map do |storage_param, storage_param_arg|
-       if storage_param_arg.match(/^\$/)
-         param_var = storage_param_arg[1..-1]
+       if storage_param_arg.to_s.match(/^\$/)
+         param_var = storage_param_arg.to_s[1..-1]
          if names.has_key?(param_var) && !names[param_var].nil?
            storage_param_arg = names[param_var]
          end
