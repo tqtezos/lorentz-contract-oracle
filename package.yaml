@@ -2,7 +2,7 @@
 
 <<: *meta
 name:                lorentz-contracts-sale
-version:             0.1.0.0
+version:             0.1.0.1
 github:              "tqtezos/lorentz-contracts-sale"
 license:             BSD3
 author:              "Michael J. Klein TQ Tezos"
