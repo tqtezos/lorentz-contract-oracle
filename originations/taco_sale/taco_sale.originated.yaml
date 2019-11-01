@@ -1,200 +1,200 @@
 ---
 config:
-  base-config: &base-config
-    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+  base-config:
+    tezos_client_path: tezos-client -A ec2-3-133-133-46.us-east-2.compute.amazonaws.com
       -P 20000
     user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
     param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param"
     stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param/stack"
-  sale-config: &sale-config
-    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+  sale-config:
+    tezos_client_path: tezos-client -A ec2-3-133-133-46.us-east-2.compute.amazonaws.com
       -P 20000
     user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
     param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale"
     stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale/stack"
 originated:
   Token1:
-    address: KT1FT9TXD7JCZ3rRrmA4S6gwZEV3pmHt4Fw1
+    address: KT1RnNyxQ1HKaQHw8WUrqnGF5oysKXNT2qQf
     config: "$base-config"
   Token2:
-    address: KT1PTHJSaXpA3njkM6Lqzi9vWmxxi1WvTsHE
+    address: KT1HnXfeto9Ue37iQe4BXWjesb4f8XrZYPuG
     config: "$base-config"
   Token4:
-    address: KT1T7uPVdJ926FSvuAGTExE6aLWUu8YpePVV
+    address: KT1UYKAoFX9nUmHfazgCejwatbYHAPo7Wgkn
     config: "$base-config"
   Token8:
-    address: KT1CK2ed4x9kRUk6vbrrgpxCQQvNC7JszDHM
+    address: KT1WFituhBgoPbNRfesEiGtC3GaRywXiCPDd
     config: "$base-config"
   Token9:
-    address: KT1WdFhQBWfbgRSCUrPrFSrHSbUjTxdw9VoL
+    address: KT1TNs8wGuPLL8iWVAkmd7R4BcwhTX5gvqLG
     config: "$base-config"
   Token5:
-    address: KT1Rz4pBKZLimpZ5R6Qib9roVEfW1SM3R8eA
-    config: "$base-config"
-  Token10:
-    address: KT1LkENTiRDwweKUjBcKJfFrumzW5FQamY6B
-    config: "$base-config"
-  Token11:
-    address: KT1GKX6NyDiDR1HM5kEsLKuCCVUqgUe2ebJo
-    config: "$base-config"
-  Token3:
-    address: KT1KxoR2UsbnQpjhAMBjwhb1L1wfrigobjD2
+    address: KT1VH4JuJgpwBb2kUHkjKCftFpdhjtXTgNQ7
     config: "$base-config"
   Token6:
-    address: KT1GvZRHq546kDJtsfbNJcvNcgDmvL4tEHB6
+    address: KT1V8TReNtgwtGipucjrAa8Rrk6GTK3xXywC
     config: "$base-config"
   Token12:
-    address: KT1Tm9gAgz9HRsRSp9XB75mj6tWG3VF8wdna
+    address: KT1KJ3XyS12cyYUfB1qqtzShwZn2LmC8fNnV
     config: "$base-config"
   Token13:
-    address: KT1SKKAmu7DT1g67aYW56gM9TnGndSXiYhNj
+    address: KT1LgXVnwedBn6UxCGxnZmMpJxwE3tEwQZDs
     config: "$base-config"
   Token7:
-    address: KT18ugUL74vPosJyyBw6gXetmRgQyXTJ4Rif
+    address: KT1Ng2JN6eSAeU5XtCCcH6Wdz1TAMHMXXRGh
     config: "$base-config"
   Token14:
-    address: KT1ENgCz6LBoKoppgz5Kw3otS8Xwx39NvS1s
+    address: KT1Q1yL5uy8QHqvmr2VGeg7hp93MNhJ5p42V
     config: "$base-config"
   Token15:
-    address: KT1GBzLMqBbhKHm8w81MyFfqF7esDhezU7m1
+    address: KT1JrCty9mtUmpokiUeHyew8Ui2cHao7cUtd
     config: "$base-config"
-  SaleToken1_Token2_1_2:
-    address: KT1MquFosttZmRn7orSejD2tS1kGZHc3zc7s
-    config: "$sale-config"
-  SaleToken1_Token3_1_2:
-    address: KT1Fwt4aLvnsAPaUYp6QxkiqtaH1qK97Rgav
-    config: "$sale-config"
-  SaleToken2_Token4_1_2:
-    address: KT1Lyfvr7fqwGu9pBx6unD7M84nXr7KynA3A
-    config: "$sale-config"
-  SaleToken2_Token5_1_2:
-    address: KT1TaW8ETUKghmiNBPWeW1abBgD2wen7ucsH
-    config: "$sale-config"
-  SaleToken4_Token8_1_2:
-    address: KT1LCXyRg84jTwQ3bXR3HgFMNgUZV7yYsAQE
-    config: "$sale-config"
-  SaleToken4_Token9_1_2:
-    address: KT1AfeCZ7kV9FHHD7Uxos3Z3FhXhi1PdEDji
-    config: "$sale-config"
   Token16:
-    address: KT1EsK59V5bBx9pGfW3CvfKJ6wM9YN7SEmNP
+    address: KT1Kb3N9xYGWXwVa8o7AGGihSyTGMzQhhyaC
     config: "$base-config"
   Token17:
-    address: KT1M3DQXyDjNjjaHVEdYKNjjwCrn3gn3be9J
+    address: KT1QrjC6KMv1zGtEJnuJaaJSDDX7rtitQw7F
     config: "$base-config"
   Token18:
-    address: KT1F7MT1VNMBFKEmpfuEJ3LQYrdKTwxA8wH5
+    address: KT1M5QLktP35pcBB8ywNo1VJ49Zptv5MKJ1B
     config: "$base-config"
   Token19:
-    address: KT1AsjRQaxRMVeBtYu4p9JdjoEb7onxv7weV
+    address: KT18m45EQqqHKoANUdZHiJ1zAv86ABnxsBiz
     config: "$base-config"
   Token20:
-    address: KT19YpSPUqnFNDo8zaw5TWjapyLnB9zEykRS
+    address: KT1Vwrr3Y5ot5EMk1ynzb4YsracD5BbbTYtM
     config: "$base-config"
-  SaleToken8_Token16_1_2:
-    address: KT1SwpMNBLqwwNgDC8pqQ7nMCb4cD1Ey3X6D
-    config: "$sale-config"
-  SaleToken8_Token17_1_2:
-    address: KT1KYkGyfurURzkbcakdLogQph6rnwdwg9ZL
-    config: "$sale-config"
-  SaleToken9_Token18_1_2:
-    address: KT1Gt1wkLV8BwfhRirtr3caRev6bvupnMuxv
-    config: "$sale-config"
-  SaleToken9_Token19_1_2:
-    address: KT1G6E3L9zkAfuMahRbDnPaLR5CmcF6Ufckx
-    config: "$sale-config"
-  SaleToken5_Token10_1_2:
-    address: KT1GVbpE4koFiGaYCByhonQkZv2YnvBihBRu
-    config: "$sale-config"
-  SaleToken5_Token11_1_2:
-    address: KT1JUqYGK24YnrtknMGGdx8dQw1r5nCoqefv
-    config: "$sale-config"
-  SaleToken10_Token20_1_2:
-    address: KT1Rjfb2YXF4ovnCp1x2dmYaikFxrfi4KEyh
-    config: "$sale-config"
   Token21:
-    address: KT1RdkCeKJy1mZyRsoMEdHNxsNkZMH1CVjsJ
+    address: KT1BCtHU7q7k2BP8ZPCtZu2vV6VxmGeLh77z
     config: "$base-config"
   Token22:
-    address: KT1BNsoBjPEoGZrmeA4NMo7Y6goNmDV84ooP
+    address: KT1TYDZNNre2cLNDQi4qxuBQPz4KS5iQtzzD
     config: "$base-config"
   Token23:
-    address: KT1D7zBxbdDnD4KJbvAG6xQRXXXnMtjDCxis
+    address: KT1QciRAENf9LJYvYavfTuRbUmgwiEHviD7C
     config: "$base-config"
   Token24:
-    address: KT1RzioMJpPRYZSKcsxfUSFNc7qA5ZPt2dZd
+    address: KT1NozebSvJnNNJVGTkScNTRs6bpEXrMYXdi
     config: "$base-config"
   Token25:
-    address: KT1D6o83AG5JKySjV7hppS2ZZxhPQRtRTpup
+    address: KT1F85Zfo57sDbFLUqLQ7u2iuSUNTgDQAfHT
     config: "$base-config"
   Token26:
-    address: KT1R7a3EAztcbZyzJ9Vg5QSLmrbdiMC5Mx9i
+    address: KT1V76MgYwXNzVMi58FopkgGdkKfyHUUWTuG
     config: "$base-config"
   Token27:
-    address: KT1FfoFSj9jP2Fkfduf4FF7cHtjVjSSdmHvm
+    address: KT1GtTPye8bXDkSKdpnRg5dSz91WdpMvN2TF
     config: "$base-config"
   Token28:
-    address: KT1PdhFUQwHSXpYq6JPmcrip4TdY8n6mSwUL
+    address: KT1S8FL7ZpjddZTFBL8cemc9YRAVpoCtTG5M
     config: "$base-config"
   Token29:
-    address: KT1U8YaeEq31EhAJrSwrxt1Sg3JLNkNRL17y
+    address: KT1PhriuW3KmeB7AWiJAWbsi7TcTnCSXXk4Q
     config: "$base-config"
   Token30:
-    address: KT1EDus6uP133nraXNgXFpTGv2N5okSgZdFA
+    address: KT1WuZtMbcNmr5Z6zmoQzPyLGdXy3vCYd6hN
     config: "$base-config"
   Token31:
-    address: KT1KzyCMJM9bJt2fnv2NSutak7baZrWxmD48
+    address: KT1DW7KzoEqWB3Rbo4USg2DSEeDZJxwVCuug
     config: "$base-config"
+  Token10:
+    address: KT1KKKNTHXYieWQ5jvK2RoQ1ev4GV6zuUNhQ
+    config: "$base-config"
+  Token11:
+    address: KT1ACmmVgiejeoDbTr9HSkxPB6JFq2qD4SeD
+    config: "$base-config"
+  Token3:
+    address: KT1PjsuayN1TVrsxTESpbwNnjphZ48b7EpGW
+    config: "$base-config"
+  SaleToken1_Token2_1_2:
+    address: KT1Bc49UwrZwgsJpjAaAtUTaCdanoscvdfjU
+    config: "$sale-config"
+  SaleToken1_Token3_1_2:
+    address: KT19932i8A23mDDh5BFDA3g9RwKiYuscq9oT
+    config: "$sale-config"
+  SaleToken2_Token4_1_2:
+    address: KT1UEZUhgy1JQ5ofQTgzpb9ygCUvTvz85Lzc
+    config: "$sale-config"
+  SaleToken2_Token5_1_2:
+    address: KT1JwpwD9Hy4gVcQiof9xcM5CyXatNuzedb8
+    config: "$sale-config"
+  SaleToken4_Token8_1_2:
+    address: KT1Fwhx6hPSmCEpZ44J6A7pv3BC2uNjZ7wyC
+    config: "$sale-config"
+  SaleToken4_Token9_1_2:
+    address: KT199JkX58TmPCbLoeGSKgGp3Ygwa9wAjAuN
+    config: "$sale-config"
+  SaleToken8_Token16_1_2:
+    address: KT1AGCZ8uFkaqtDR4v51vfWN3ANUtvFLkXzm
+    config: "$sale-config"
+  SaleToken8_Token17_1_2:
+    address: KT18cnEXscQVrEMK5huxrYqi5BwXcRLUFMzz
+    config: "$sale-config"
+  SaleToken9_Token18_1_2:
+    address: KT1Bon8rjsFYmbFRo55Ks4AqybKjZUi5CnQ3
+    config: "$sale-config"
+  SaleToken9_Token19_1_2:
+    address: KT1KAoiaCApufQYY43eZJ5QqswPCU7cyiGPc
+    config: "$sale-config"
+  SaleToken5_Token10_1_2:
+    address: KT1Ns6HdoUcU1Q8wURAp3YaUEKxumsbr6t4u
+    config: "$sale-config"
+  SaleToken5_Token11_1_2:
+    address: KT1KNZNEnb3tXmN8iqhDVBqP9cZH6Sze2YLh
+    config: "$sale-config"
+  SaleToken10_Token20_1_2:
+    address: KT1QHGmJCj8toJpF3PzfQFtmX15iZgoJrvtY
+    config: "$sale-config"
   SaleToken10_Token21_1_2:
-    address: KT1JEB5ubDfmFsRHQK3FgEkaTAuKDvNTTsXx
+    address: KT1NWK8g8g89VSaPssnKjsn4rnhGF2N3seu6
     config: "$sale-config"
   SaleToken11_Token22_1_2:
-    address: KT1GYAuBRia7dbnXwkBEVhfDaD6ZXW2AS5Nj
+    address: KT1LHq3GL949bcDFNbkzqpPCrGsGR6PsRpGH
     config: "$sale-config"
   SaleToken11_Token23_1_2:
-    address: KT1TfeAhKW3noPAYSAbVqZwZjrnjFmQQoSaC
+    address: KT1Kdv3s8YSCD9sERiHEeu4VsVUzWGiHtCby
     config: "$sale-config"
   SaleToken3_Token6_1_2:
-    address: KT1L8woxdEzkdEttEcAxyv9wAkdo8QhBeSLH
+    address: KT1BD7DZpH13SU83cBTSVhniCvTCSEjjTi3q
     config: "$sale-config"
   SaleToken3_Token7_1_2:
-    address: KT1EravSWa9vcL5TekZgPmXciPNj4QotdnP6
+    address: KT1KK1e7Dbwsk4QR7T2VVWxJZnFbDyfXJs2Q
     config: "$sale-config"
   SaleToken6_Token12_1_2:
-    address: KT1VRckjj1HVZ4PpYLDSPnzAYp2yPoaGLez1
+    address: KT1X4jxiiodnfGxccrTbABhnCKHNxtWsq5Tr
     config: "$sale-config"
   SaleToken6_Token13_1_2:
-    address: KT1Km1ERHWwUocteWmPdQCSkhTdPFN8WW8ZQ
+    address: KT1La6unBsTPQ5jvKGW43cPRdepgtSK8i1Zx
     config: "$sale-config"
   SaleToken12_Token24_1_2:
-    address: KT1Ua1WaTAG3wr95BvmkSgcoKH5dhD1UTGei
+    address: KT1AcqZHxcwP3VMY1qZCMujw2r1YMt2eSTrF
     config: "$sale-config"
   SaleToken12_Token25_1_2:
-    address: KT1NGwhz7YR71vVDGPf5mRGdgigL65Fj6pFJ
+    address: KT1Mtd4Hrr7cU4XA29LXstb3rVoAeLoAUZst
     config: "$sale-config"
   SaleToken13_Token26_1_2:
-    address: KT1CjVwQxUGxiYcQtqb5f86dQhFzdfsJFdHd
+    address: KT1AJJ166M1i1r4g1BX4qUBCSGYNoQ7tXcuZ
     config: "$sale-config"
   SaleToken13_Token27_1_2:
-    address: KT1WyGjonsXJVrkcuwPi8XJavbHtVeYiF5bu
+    address: KT1TDP5r3uo5ApeiC9SqiTdQQQA7zqvJ9dVn
     config: "$sale-config"
   SaleToken7_Token14_1_2:
-    address: KT1TsKX9DdPAc1CZ8ZyvMiuy4ckqRBJvoUck
+    address: KT1SZ8rYJhXXxyMaWuheCjuJc7aqQjMZYn49
     config: "$sale-config"
   SaleToken7_Token15_1_2:
-    address: KT1TQKoXkug1AGYGAkBUG8VgTmNQUimZChUf
+    address: KT1LQDwWGuzaFe5NrxrTctk1b4MzURcinBZg
     config: "$sale-config"
   SaleToken14_Token28_1_2:
-    address: KT1PrajetVK6qKUTJRVUBcGRCCxjSNAC2Nja
+    address: KT1QmtABeyYSMzEHTEs4QG3Z8rBri1T7Y1n7
     config: "$sale-config"
   SaleToken14_Token29_1_2:
-    address: KT1UnYijhKyb7xDSZMFbA4EEiGF35EtR2MMP
+    address: KT1BwGtiybyoA4jJvbhd4too8uL8ZvsbJFZh
     config: "$sale-config"
   SaleToken15_Token30_1_2:
-    address: KT1ANn46CE2uB4pNZ7ArHvuxTC21egjoK72a
+    address: KT1CvjbxPTHrAAKKMwhGRW6beWaqnHWoK6Ti
     config: "$sale-config"
   SaleToken15_Token31_1_2:
-    address: KT1UJdq5mbFUFExXbu1vGQeeecE9YHCTVXp6
+    address: KT1BxfoDYZtjUZbuSuoiMmgjWMx12NSrCy8d
     config: "$sale-config"
 ran:
   MintToken1_Alice_3200:
@@ -202,313 +202,313 @@ ran:
     parameters:
       to: "$Alice"
       value: 3200
-    operation_hash: ookM3EpH5XZ2LDMXUQmrNJx3rv22C6dq6HbCCRdvbnzAiDx6U92
+    operation_hash: oo8bCwbuAk4NqSZFXY5apHEEbuKiDPKydbCR4joB3ZmJhcQP4jz
     config: "$base-config"
   MintToken2_Alice_1600:
     contract: Token2
     parameters:
       to: "$Alice"
       value: 1600
-    operation_hash: oow7uL44fmaCJvUbU9xS5Jrcg66cr5q55uREFrrRgzg4shU5Th2
+    operation_hash: opLfT7vi4QV3fiTHVgSkBvQSRGFy4Ge1j6y315vopaZFiNN6ZSZ
     config: "$base-config"
   MintToken4_Alice_800:
     contract: Token4
     parameters:
       to: "$Alice"
       value: 800
-    operation_hash: ooBJq4EgkFUfK5DSKQ7nepxBopxBnvHCuCLhhjuLL4PMKdS1eEi
+    operation_hash: onqfWnC261bG3T4eGytmjsA8WaWgM1zPJKfkxzRf21RGnJ6aaLZ
     config: "$base-config"
   MintToken8_Alice_400:
     contract: Token8
     parameters:
       to: "$Alice"
       value: 400
-    operation_hash: onxA76REszyZypnZvw78zanNPrqBfKuERxr8LDbw41Pzshck6VF
+    operation_hash: ooKwNE45U13AB23uEkbHVAP9AoUfJB8edYvD2x1GdSvE73dKcSV
     config: "$base-config"
   MintToken9_Alice_400:
     contract: Token9
     parameters:
       to: "$Alice"
       value: 400
-    operation_hash: oofoSPDyKQWGiZWPzH5UJzDGDP8jLCJUbB8d5n5kjn2ntMYwMW4
+    operation_hash: ooQdYtawqe9hB79M3mHqcF8R4UehRXBNsRDoPQTwqUVub1NhdYX
     config: "$base-config"
   MintToken5_Alice_800:
     contract: Token5
     parameters:
       to: "$Alice"
       value: 800
-    operation_hash: op1kJVkDjMPTRjfJ1CYnVrxrdVv7gVZK76jCmn8rNMPoYs2YGsQ
+    operation_hash: ooZwHk8UrEZwo6N5H2AF5CVcdXBB35eknJAqJcn3EzAAs5tE1YK
     config: "$base-config"
   MintToken10_Alice_400:
     contract: Token10
     parameters:
       to: "$Alice"
       value: 400
-    operation_hash: ooWf23y16FwioKpEatVBts3LuVEBjyYp5w9sYEe95MyxDUpEVrD
+    operation_hash: oosj7Sr9kWczWJUTXnVpVjdSgcHShkAotmCbTdZUSZ6EBTf45WW
     config: "$base-config"
   MintToken11_Alice_400:
     contract: Token11
     parameters:
       to: "$Alice"
       value: 400
-    operation_hash: ontA79g5XJ5PHyXdLzugd69CyCca56MBmeWXuxAt5JQ4Fbn1DvL
+    operation_hash: opF2Q22NdRjbMtcr8xdkavwNoZn4b8PfWdeMHgeBvu2ngDrmkju
     config: "$base-config"
   MintToken3_Alice_1600:
     contract: Token3
     parameters:
       to: "$Alice"
       value: 1600
-    operation_hash: ooBsBDe5NqiT7x7DtcmkeLPrHnS7otYbaHTpi4AuUMtKf19gX4b
+    operation_hash: onkEj8sTwWhtQJSG2xsdbpYwTrjLmhyUeiYsNZCQGCmCKmGyv3G
     config: "$base-config"
   MintToken6_Alice_800:
     contract: Token6
     parameters:
       to: "$Alice"
       value: 800
-    operation_hash: oo8zxzuJ7Pk73gj1YqC7kjrPXyMBaVP2h8Xxs5uq8g5ksQnJ8LY
+    operation_hash: opDyFW8BvrE7Lv9VNx78QZzENR6tr1jbF2yoK14YwU69pZiz9X9
     config: "$base-config"
   MintToken12_Alice_400:
     contract: Token12
     parameters:
       to: "$Alice"
       value: 400
-    operation_hash: opMKn2VpKyPV1o3Fk3F6dmz5reKP6t79zqHuuUuFEm8dsdLUhGF
+    operation_hash: oouUXyhbz7KihnvTMYKNujhSMvbKxenF7MYRJ7oihRwrqbCiR7m
     config: "$base-config"
   MintToken13_Alice_400:
     contract: Token13
     parameters:
       to: "$Alice"
       value: 400
-    operation_hash: op5iKdDJ35nVA6g6dgWbpiNmraQjQhw5T64FTu9S5eBVGKpWXSi
+    operation_hash: ooUT8Pim4Si8r756XcAjZ37cVuUa9PtcBKPo3QcECSGuW6MTEdM
     config: "$base-config"
   MintToken7_Alice_800:
     contract: Token7
     parameters:
       to: "$Alice"
       value: 800
-    operation_hash: opRSx6PweGAzfLzYbpBQiTz72KfMUkoprKdqRjqG3Rw2QKrKSFX
+    operation_hash: oo5rMvMxD5zC2tKgnLJC2CFB6ksBZzPWSh12dAgxso3FVkpkvFA
     config: "$base-config"
   MintToken14_Alice_400:
     contract: Token14
     parameters:
       to: "$Alice"
       value: 400
-    operation_hash: ooPMEfp1czkLUqSrpRbDEN1bk5RrjtekExfmKqqGuHibdvc4x7o
+    operation_hash: onvGKGx5wQ32hfv7D1qgzrJqNVoYdjphmybKUEhZ4x4Km5ftruR
     config: "$base-config"
   MintToken15_Alice_400:
     contract: Token15
     parameters:
       to: "$Alice"
       value: 400
-    operation_hash: opYT7naMPJmrz1XBGAm2uMeEWpAdJu84aBHi3Mrgo4Jt2Cu324p
+    operation_hash: ooeVwctU1LBEAZqwQiUrZ4BcTEDVoLr8Wue7r5HSMPEgJqSbEqP
     config: "$base-config"
   AllowanceAlice_Sale1_Token2_1_2_1600:
     contract: "$Token1"
     parameters:
       spender: "$SaleToken1_Token2_1_2"
       value: 1600
-    operation_hash: oogY3SK3zvQeUqUBgzeJMgQY8U9wFPfxiXtDPystfDxCmcckRRY
+    operation_hash: op3NjpLeowDSw8bXSaZFEWouCZdmnsEuintAK7agNQsUBCYH3fB
     config: "$base-config"
   AllowanceAlice_Sale1_Token3_1_2_1600:
     contract: "$Token1"
     parameters:
       spender: "$SaleToken1_Token3_1_2"
       value: 1600
-    operation_hash: ooZCYTghbG3G4RTVMRVnwC7t8b4vjS4yaixV3VLWEMwisPyNftY
+    operation_hash: oo6ALAbKEdxWvupcgeGgGwZEt9hGRVFv7JLoMmZLgdxYvJ8rFWv
     config: "$base-config"
   AllowanceAlice_Sale2_Token4_1_2_800:
     contract: "$Token2"
     parameters:
       spender: "$SaleToken2_Token4_1_2"
       value: 800
-    operation_hash: oo9Thh2wgQqHqfnEPUDTFpmQFtvxu6KCYHwwhMdvThFiDkSwxPv
+    operation_hash: ooYwYgEiexFAkitgk1NUMG6Ump6oS2CEffLXTRxtKvEF6NtmGKD
     config: "$base-config"
   AllowanceAlice_Sale2_Token5_1_2_800:
     contract: "$Token2"
     parameters:
       spender: "$SaleToken2_Token5_1_2"
       value: 800
-    operation_hash: oovdfhV3CU3oacwL3eMgWDeQfVrg83Ve4HoPqTQEdUrGS3FT7Sh
+    operation_hash: ooUJa81q58y6EpRSByQwWW42AZvejmp7UdHqaFACy46jMKG5w2r
     config: "$base-config"
   AllowanceAlice_Sale4_Token8_1_2_400:
     contract: "$Token4"
     parameters:
       spender: "$SaleToken4_Token8_1_2"
       value: 400
-    operation_hash: onxFsmYHq5BZfhExhuv71Z2DhgqFGFQT6BeiRoPhJ5AS1Bgxsmb
+    operation_hash: ooAQJasdS9YBvv5MFcKKiRZ9ykL9ockGRUtJp2ziqBYxQnwBpzH
     config: "$base-config"
   AllowanceAlice_Sale4_Token9_1_2_400:
     contract: "$Token4"
     parameters:
       spender: "$SaleToken4_Token9_1_2"
       value: 400
-    operation_hash: ooxpGK7gPH4qLvhtu15jAqfxCFCfe7K9yJCUWU8a9rx2yysCtME
+    operation_hash: opZ2TCzJEbgsdfRQ7oUPzwoK6hEEyd3BfNhrkH4sQN2C6JCsApF
     config: "$base-config"
   AllowanceAlice_Sale8_Token16_1_2_200:
     contract: "$Token8"
     parameters:
       spender: "$SaleToken8_Token16_1_2"
       value: 200
-    operation_hash: ooLbpbpswrEJ5TqLYGwWJPbQzfKQNTC86jVnSySR3yivNYh7M9g
+    operation_hash: oocvbNNNB9UikoiKW1dHZDAKHYWQ8BdKFp8Dpz2uTcKZ7z1AikH
     config: "$base-config"
   AllowanceAlice_Sale8_Token17_1_2_200:
     contract: "$Token8"
     parameters:
       spender: "$SaleToken8_Token17_1_2"
       value: 200
-    operation_hash: ooKwsDFskeW5RefazqyRsstqmV8ohSPMALVpUgk49s3YLU1oiai
+    operation_hash: op3ZLqPRtLLVuo5EzpD6sJ4jALT8Bj2PNN4kMMUJA7mYFYJGZ8Y
     config: "$base-config"
   AllowanceAlice_Sale9_Token18_1_2_200:
     contract: "$Token9"
     parameters:
       spender: "$SaleToken9_Token18_1_2"
       value: 200
-    operation_hash: onzJdVUfpoAHCF2d1PNxjiYyWuaHGa7MEZe1SHiNWDVsyv9idTq
+    operation_hash: ooWWN4dUXouCHfBztAnmZDbYfqceC1bQyUyAhwwwnyHs3byVfBw
     config: "$base-config"
   AllowanceAlice_Sale9_Token19_1_2_200:
     contract: "$Token9"
     parameters:
       spender: "$SaleToken9_Token19_1_2"
       value: 200
-    operation_hash: opB1FA61BxRMddbvF9EURhrQ8ZWdnV2oqhyEuw741N7nbTjrgLx
+    operation_hash: oneWkJxiCXZh1S2ixZHQyQqa55T3haboPMbcjDbm4pSJ5zLZ4st
     config: "$base-config"
   AllowanceAlice_Sale5_Token10_1_2_400:
     contract: "$Token5"
     parameters:
       spender: "$SaleToken5_Token10_1_2"
       value: 400
-    operation_hash: ooN4E72dsXHPWyu5HDDtX4TFpyuh9dPBBHGSkVXUke8BxwycRbz
+    operation_hash: oo9YQyAGCoMsfcDnEJM4QeUDFEkTcj53wtjaqov8R6cD21s79ew
     config: "$base-config"
   AllowanceAlice_Sale5_Token11_1_2_400:
     contract: "$Token5"
     parameters:
       spender: "$SaleToken5_Token11_1_2"
       value: 400
-    operation_hash: oo7YMFGansUzbvFqAutzwAG7UQaxr9bUA7ozdrYoAbAt4hyeuo5
+    operation_hash: opawbUNa18E6posHKXam3pjaceDcTeUajggMLP31U2LR1Zk8nPq
     config: "$base-config"
   AllowanceAlice_Sale10_Token20_1_2_200:
     contract: "$Token10"
     parameters:
       spender: "$SaleToken10_Token20_1_2"
       value: 200
-    operation_hash: opR4YJp6WHBcmKsenQCCWxAVRJXhDJ5Z6T92Ri1aXwcwJBvK4n8
+    operation_hash: opTFFe3Whz3Fry4c7wERHq9m192ktgMpdouPYczBGQskXSDYSMu
     config: "$base-config"
   AllowanceAlice_Sale10_Token21_1_2_200:
     contract: "$Token10"
     parameters:
       spender: "$SaleToken10_Token21_1_2"
       value: 200
-    operation_hash: oo5Ee3WBBzeGpqomHnoKdSY56XSm4qevpyptqHzCNHfhqw11Y2s
+    operation_hash: onjBw5pCEjfAJDnxYfPhvQ9rga2evCQxLUZ9Qzde95pHpZ9mS2x
     config: "$base-config"
   AllowanceAlice_Sale11_Token22_1_2_200:
     contract: "$Token11"
     parameters:
       spender: "$SaleToken11_Token22_1_2"
       value: 200
-    operation_hash: opH1G51Z2JY5yDUCrXzSewZYNbPVQ2Lw4iLgut2Ygptz6F9fXcs
+    operation_hash: ooj5D3Y63guJiDtB8PMNZP5hd9Y3inZe5wTKRsiHtJjnk4Ug6XK
     config: "$base-config"
   AllowanceAlice_Sale11_Token23_1_2_200:
     contract: "$Token11"
     parameters:
       spender: "$SaleToken11_Token23_1_2"
       value: 200
-    operation_hash: oorUmK84P1d17sjLuDHQ4EtTYjjMu5oYWKWgNQ4EWnpDKypBTG2
+    operation_hash: opHmCfERbY39b3bQSaZzXTxGXWkamFUXsHqLFqeRVjYza5zN1np
     config: "$base-config"
   AllowanceAlice_Sale3_Token6_1_2_800:
     contract: "$Token3"
     parameters:
       spender: "$SaleToken3_Token6_1_2"
       value: 800
-    operation_hash: ooduKwtTo8Fm5EMJU1C6L7XFairB8i2xGiPYDamAgmiSLfHKvxr
+    operation_hash: ooge9m7i3zRmztH3U354DFW7noqQHVmni3VZcNGdr5pXj2TvtUD
     config: "$base-config"
   AllowanceAlice_Sale3_Token7_1_2_800:
     contract: "$Token3"
     parameters:
       spender: "$SaleToken3_Token7_1_2"
       value: 800
-    operation_hash: opEb5YetALWF2DKwvSHHtZBEvavLRMLLPQpBJ9EHTtbok7RmEM8
+    operation_hash: oo6ejynfe9AtzWsRR9uphhjzkNVbBfQEUTvh3yYEZw43Ait9tYv
     config: "$base-config"
   AllowanceAlice_Sale6_Token12_1_2_400:
     contract: "$Token6"
     parameters:
       spender: "$SaleToken6_Token12_1_2"
       value: 400
-    operation_hash: op8yqi6d7C19NMrGUKwm3E31UZugA7mRFrv5ZKAHiZRHoWimxgp
+    operation_hash: ooU5LLk9q8HbHrzHNDPvFjdFxS4JaPZ1gTKg5Z6ZZ1qbpeNpamb
     config: "$base-config"
   AllowanceAlice_Sale6_Token13_1_2_400:
     contract: "$Token6"
     parameters:
       spender: "$SaleToken6_Token13_1_2"
       value: 400
-    operation_hash: oorrV4roSBEHSsXJAUQLKvqE4A9Db2HqmtoX9xkxbSWHpUmVfrY
+    operation_hash: oo3Cz6ecDKoJu1BnqLw2wQVSi9KBtr2KZnKLTp95ZqQVFbtfzaH
     config: "$base-config"
   AllowanceAlice_Sale12_Token24_1_2_200:
     contract: "$Token12"
     parameters:
       spender: "$SaleToken12_Token24_1_2"
       value: 200
-    operation_hash: onusvpz6G3TrftggCnppvvJRYofWKsoT1NCkzcmgJanu9fnBKxp
+    operation_hash: oni3AkcMykX64hy2zwaHZS7kjXUAhg3TQYkc5qo6kgNCBQoJaEG
     config: "$base-config"
   AllowanceAlice_Sale12_Token25_1_2_200:
     contract: "$Token12"
     parameters:
       spender: "$SaleToken12_Token25_1_2"
       value: 200
-    operation_hash: onkAWHzNeiMHAWyV3wa9Z3GVajzGpewLFFpfapTv8PkaSqJFtbB
+    operation_hash: ooQTPBp8etMvBTivN8Aexx416DrdZpjwofpEBeXv4mW2Bzt3RPQ
     config: "$base-config"
   AllowanceAlice_Sale13_Token26_1_2_200:
     contract: "$Token13"
     parameters:
       spender: "$SaleToken13_Token26_1_2"
       value: 200
-    operation_hash: onwXpspBEMYFV4dGfMKMSJWJQQ5S6HPNXGkYfF8XJkwpdLJV3Le
+    operation_hash: ooxsvXVTppnLVMx5ooxtCiv61Jen2p3vxhrhPw1XvNe3rtgYrqD
     config: "$base-config"
   AllowanceAlice_Sale13_Token27_1_2_200:
     contract: "$Token13"
     parameters:
       spender: "$SaleToken13_Token27_1_2"
       value: 200
-    operation_hash: opQkDSpxGz45wDuvDEhu1yHXspyvwJAZ5YgjZkzUTEuALA9Jrok
+    operation_hash: ooPfhGstim4z6pymGoY6UJoJtGjNx9kcBDKs6ZW8WvsN7d6XStk
     config: "$base-config"
   AllowanceAlice_Sale7_Token14_1_2_400:
     contract: "$Token7"
     parameters:
       spender: "$SaleToken7_Token14_1_2"
       value: 400
-    operation_hash: opL469tT2rLLwZWkHRDJhcc8P2MwDZjzbkw1Robyh6PJS9Kj8M4
+    operation_hash: ooUA2q9FZutbwrumGgzytrypmxXUGU3cxpBH7oHQVQ2DtvksbcS
     config: "$base-config"
   AllowanceAlice_Sale7_Token15_1_2_400:
     contract: "$Token7"
     parameters:
       spender: "$SaleToken7_Token15_1_2"
       value: 400
-    operation_hash: ooJxGUR5Btzg3WHAcLS7icfboiE2dfD8eR4naVEJB6Z7ByEhJDF
+    operation_hash: op2jafBoLLkX1dEWwLZ9Sy54tjuzv9ApXEjjhNB2tT7SpTKNLnM
     config: "$base-config"
   AllowanceAlice_Sale14_Token28_1_2_200:
     contract: "$Token14"
     parameters:
       spender: "$SaleToken14_Token28_1_2"
       value: 200
-    operation_hash: onyoPUBpgAzxAEJSfA4HDKUhrYYAUpfFKVQM4Pegy3vA4dWKmwv
+    operation_hash: oocSmW3jfrD8N2RFRdsVoKs5LuxsG48JazWmrW3j8en74NWmx1S
     config: "$base-config"
   AllowanceAlice_Sale14_Token29_1_2_200:
     contract: "$Token14"
     parameters:
       spender: "$SaleToken14_Token29_1_2"
       value: 200
-    operation_hash: ooMjEdUaQ9qL8Jznw8qtprRhx6Nci93vix31NmX7FPmi1t68QrN
+    operation_hash: oodTdTfgveitB64crCAbxwuKooekvbhNXy3s6HAMSYCdzeM4w4o
     config: "$base-config"
   AllowanceAlice_Sale15_Token30_1_2_200:
     contract: "$Token15"
     parameters:
       spender: "$SaleToken15_Token30_1_2"
       value: 200
-    operation_hash: opZqZ7uRS6ZsuoskoHfUu1uXH1c4X219RPphsGX8DaSVYhSxM8F
+    operation_hash: onyVqibz2p3F69UHVG8xzLki7HpctgMaTZMEcDXUYoqbouyj2K2
     config: "$base-config"
   AllowanceAlice_Sale15_Token31_1_2_200:
     contract: "$Token15"
     parameters:
       spender: "$SaleToken15_Token31_1_2"
       value: 200
-    operation_hash: ooTeFmA11CqpcQLrh4Q67uHmNVwqs9MjeApT5Tqujmx3eWACxyK
+    operation_hash: onv1h4WfndYTbwLjexZ4Zbax4VBJgAEnJ4KQJ8e7sFgJ8GzddaG
     config: "$base-config"

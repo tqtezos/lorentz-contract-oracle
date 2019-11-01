@@ -1,7 +1,7 @@
 config:
   base-config: &base-config
     tezos_client_path:
-      "tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com -P 20000"
+      "tezos-client -A ec2-3-133-133-46.us-east-2.compute.amazonaws.com -P 20000"
     user_address:
       tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
     param_path:
@@ -39,6 +39,14 @@ do:
         admin: $Alice
       burn_cap: '4.675'
   - originate:
+      alias: Token3
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
       alias: Token4
       config: $base-config
       command: lorentz-contract print --name ManagedLedger
@@ -56,6 +64,22 @@ do:
       burn_cap: '4.675'
   - originate:
       alias: Token9
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token10
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token11
       config: $base-config
       command: lorentz-contract print --name ManagedLedger
       storage_command: lorentz-contract-storage ManagedLedgerBabylon
