@@ -17,7 +17,7 @@ config:
 
   user-base-config: &user-base-config
     tezos_client_path:
-      "tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com -P 20000"
+      "tezos-client -A ec2-3-133-133-46.us-east-2.compute.amazonaws.com -P 20000"
     user_address:
       tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
     param_path: '.'
@@ -28,12 +28,6 @@ config:
     param_path: '.'
 
 do:
-  - user:
-      name:
-        Token16
-      address:
-        KT1EsK59V5bBx9pGfW3CvfKJ6wM9YN7SEmNP
-
   - user:
       name:
         Bob
