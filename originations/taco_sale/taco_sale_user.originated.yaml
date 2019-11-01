@@ -1,0 +1,39 @@
+<<: !include "taco_sale.originated.yaml"
+
+config:
+  base-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param"
+    stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param/stack"
+  sale-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale"
+    stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale/stack"
+  user-base-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "."
+    stack_path: 
+  user-sale-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "."
+    stack_path: 
+originated:
+  TokenBob:
+    address: KT1DFXkKHnbDQwv4PXbk2VDygeBfop6QN55h
+    config: "$user-base-config"
+ran:
+  MintTokenBob_Bob_100:
+    contract: "$TokenBob"
+    parameters:
+      to: "$Bob"
+      value: 100
+    operation_hash: oo41Yo294RrRMUxTndeFRUGR8tWq2nNoQe2uPG4FD5g8XaLTBfY
+    config: "$user-base-config"

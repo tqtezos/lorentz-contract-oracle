@@ -170,9 +170,12 @@ class LorentzContractParam
  def self.init_originated_contracts(file_path, yaml_configs)
    originated_contracts_path = self.originated_contracts_path(file_path)
    self.originated_contracts = if File.exist?(originated_contracts_path)
-     originated_yaml = YAML.load(File.read(originated_contracts_path))
+     originated_yaml = self.recursive_yaml(originated_contracts_path)
      originated_configs = originated_yaml['config']
      unless originated_configs == yaml_configs
+       puts YAML.dump(yaml_configs)
+       puts("-" * 50)
+       puts YAML.dump(originated_configs)
        raise "expected 'config' fields in #{file_path} and #{originated_contracts_path} to match"
      end
      self.ran_calls = originated_yaml['ran']
@@ -222,8 +225,40 @@ class LorentzContractParam
    end
  end
 
+ def self.recursive_yaml(file_path) #, raw=false)
+   yaml = YAML.safe_load(File.read(file_path), [], [], true, file_path)
+   if yaml.has_key?('<<')
+     Dir.chdir("#{File.dirname(file_path)}") do
+       included = YAML.safe_load(File.read(yaml['<<']), [], [], true, yaml['<<'])
+       yaml = included.merge(yaml)
+     end
+   end
+   yaml
+   # if raw
+   #   yaml = YAML.load(File.read(file_path))
+   #   if contained_file_path = yaml['<<']
+   #     YAML.load(self.recursive_yaml(contained_file_path, raw=true) + "\n" + File.read(file_path))
+   #   else
+   #     yaml
+   #   end
+   # else
+   #   raw_file = File.read(file_path)
+   #   yaml = begin
+   #     YAML.load(raw_file)
+   #   rescue => e
+   #     {}
+   #   end
+   #
+   #   if contained_file_path = yaml['<<']
+   #     YAML.load(self.recursive_yaml(contained_file_path, raw=true) + "\n" + raw_file)
+   #   else
+   #     raw_file
+   #   end
+   # end
+ end
+
  def self.from_yaml(file_path)
-   yaml = YAML.load(File.read(file_path))
+   yaml = self.recursive_yaml(file_path)
    yaml_configs = yaml['config']
 
    yaml['do'].each do |action|
@@ -402,7 +437,8 @@ if __FILE__ == $0
   if ARGV[1]&.strip == 'info'
     file_path = ARGV[0]
     originated_contracts_path = LorentzContractParam.originated_contracts_path(file_path)
-    originated_yaml = YAML.load(File.read(originated_contracts_path))
+    originated_yaml = LorentzContractParam.recursive_yaml(originated_contracts_path)
+    # YAML.load(File.read(originated_contracts_path))
     originated_yaml['originated'].each do |contract|
       p contract
       contract_address = contract[1]['address']

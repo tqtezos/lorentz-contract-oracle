@@ -1,0 +1,1043 @@
+config:
+  base-config: &base-config
+    tezos_client_path:
+      "tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com -P 20000"
+    user_address:
+      tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path:
+      /Users/michaelklein/Coding/morley-framework/lorentz-contract-param
+    stack_path:
+      /Users/michaelklein/Coding/morley-framework/lorentz-contract-param/stack
+
+  sale-config: &sale-config
+    <<: *base-config
+    param_path:
+      /Users/michaelklein/Coding/morley-framework/lorentz-contract-sale
+    stack_path:
+      /Users/michaelklein/Coding/morley-framework/lorentz-contract-sale/stack
+
+do:
+  - user:
+      name:
+        Alice
+      address:
+        tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+  - originate:
+      alias: Token1
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token2
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token4
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token8
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token9
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token5
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token6
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token12
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token13
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token7
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token14
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token15
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token16
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token17
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token18
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token19
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token20
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token21
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token22
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token23
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token24
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token25
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token26
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token27
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token28
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token29
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token30
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - originate:
+      alias: Token31
+      config: $base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Alice
+      burn_cap: '4.675'
+  - run:
+      alias: MintToken1_Alice_3200
+      config: $base-config
+      contract: Token1
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 3200
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken2_Alice_1600
+      config: $base-config
+      contract: Token2
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 1600
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken4_Alice_800
+      config: $base-config
+      contract: Token4
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 800
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken8_Alice_400
+      config: $base-config
+      contract: Token8
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 400
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken9_Alice_400
+      config: $base-config
+      contract: Token9
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 400
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken5_Alice_800
+      config: $base-config
+      contract: Token5
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 800
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken10_Alice_400
+      config: $base-config
+      contract: Token10
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 400
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken11_Alice_400
+      config: $base-config
+      contract: Token11
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 400
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken3_Alice_1600
+      config: $base-config
+      contract: Token3
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 1600
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken6_Alice_800
+      config: $base-config
+      contract: Token6
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 800
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken12_Alice_400
+      config: $base-config
+      contract: Token12
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 400
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken13_Alice_400
+      config: $base-config
+      contract: Token13
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 400
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken7_Alice_800
+      config: $base-config
+      contract: Token7
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 800
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken14_Alice_400
+      config: $base-config
+      contract: Token14
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 400
+      burn_cap: '0.074'
+  - run:
+      alias: MintToken15_Alice_400
+      config: $base-config
+      contract: Token15
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Alice
+        value: 400
+      burn_cap: '0.074'
+  - originate:
+      alias: SaleToken1_Token2_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token1
+        wallet: $Alice
+        wanted: $Token2
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken1_Token3_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token1
+        wallet: $Alice
+        wanted: $Token3
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken2_Token4_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token2
+        wallet: $Alice
+        wanted: $Token4
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken2_Token5_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token2
+        wallet: $Alice
+        wanted: $Token5
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken4_Token8_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token4
+        wallet: $Alice
+        wanted: $Token8
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken4_Token9_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token4
+        wallet: $Alice
+        wanted: $Token9
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken8_Token16_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token8
+        wallet: $Alice
+        wanted: $Token16
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken8_Token17_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token8
+        wallet: $Alice
+        wanted: $Token17
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken9_Token18_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token9
+        wallet: $Alice
+        wanted: $Token18
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken9_Token19_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token9
+        wallet: $Alice
+        wanted: $Token19
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken5_Token10_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token5
+        wallet: $Alice
+        wanted: $Token10
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken5_Token11_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token5
+        wallet: $Alice
+        wanted: $Token11
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken10_Token20_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token10
+        wallet: $Alice
+        wanted: $Token20
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken10_Token21_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token10
+        wallet: $Alice
+        wanted: $Token21
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken11_Token22_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token11
+        wallet: $Alice
+        wanted: $Token22
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken11_Token23_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token11
+        wallet: $Alice
+        wanted: $Token23
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken3_Token6_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token3
+        wallet: $Alice
+        wanted: $Token6
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken3_Token7_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token3
+        wallet: $Alice
+        wanted: $Token7
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken6_Token12_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token6
+        wallet: $Alice
+        wanted: $Token12
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken6_Token13_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token6
+        wallet: $Alice
+        wanted: $Token13
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken12_Token24_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token12
+        wallet: $Alice
+        wanted: $Token24
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken12_Token25_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token12
+        wallet: $Alice
+        wanted: $Token25
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken13_Token26_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token13
+        wallet: $Alice
+        wanted: $Token26
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken13_Token27_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token13
+        wallet: $Alice
+        wanted: $Token27
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken7_Token14_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token7
+        wallet: $Alice
+        wanted: $Token14
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken7_Token15_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token7
+        wallet: $Alice
+        wanted: $Token15
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken14_Token28_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token14
+        wallet: $Alice
+        wanted: $Token28
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken14_Token29_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token14
+        wallet: $Alice
+        wanted: $Token29
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken15_Token30_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token15
+        wallet: $Alice
+        wanted: $Token30
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - originate:
+      alias: SaleToken15_Token31_1_2
+      config: $sale-config
+      command: lorentz-contracts-sale print
+      storage_command: lorentz-contracts-sale init
+      initial_storage:
+        admin: $Alice
+        held: $Token15
+        wallet: $Alice
+        wanted: $Token31
+        held-price: '1'
+        wanted-price: '2'
+      burn_cap: '1.749'
+  - run:
+      alias: AllowanceAlice_Sale1_Token2_1_2_1600
+      config: $base-config
+      contract: $Token1
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken1_Token2_1_2
+        value: 1600
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale1_Token3_1_2_1600
+      config: $base-config
+      contract: $Token1
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken1_Token3_1_2
+        value: 1600
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale2_Token4_1_2_800
+      config: $base-config
+      contract: $Token2
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken2_Token4_1_2
+        value: 800
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale2_Token5_1_2_800
+      config: $base-config
+      contract: $Token2
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken2_Token5_1_2
+        value: 800
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale4_Token8_1_2_400
+      config: $base-config
+      contract: $Token4
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken4_Token8_1_2
+        value: 400
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale4_Token9_1_2_400
+      config: $base-config
+      contract: $Token4
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken4_Token9_1_2
+        value: 400
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale8_Token16_1_2_200
+      config: $base-config
+      contract: $Token8
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken8_Token16_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale8_Token17_1_2_200
+      config: $base-config
+      contract: $Token8
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken8_Token17_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale9_Token18_1_2_200
+      config: $base-config
+      contract: $Token9
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken9_Token18_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale9_Token19_1_2_200
+      config: $base-config
+      contract: $Token9
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken9_Token19_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale5_Token10_1_2_400
+      config: $base-config
+      contract: $Token5
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken5_Token10_1_2
+        value: 400
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale5_Token11_1_2_400
+      config: $base-config
+      contract: $Token5
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken5_Token11_1_2
+        value: 400
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale10_Token20_1_2_200
+      config: $base-config
+      contract: $Token10
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken10_Token20_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale10_Token21_1_2_200
+      config: $base-config
+      contract: $Token10
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken10_Token21_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale11_Token22_1_2_200
+      config: $base-config
+      contract: $Token11
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken11_Token22_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale11_Token23_1_2_200
+      config: $base-config
+      contract: $Token11
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken11_Token23_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale3_Token6_1_2_800
+      config: $base-config
+      contract: $Token3
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken3_Token6_1_2
+        value: 800
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale3_Token7_1_2_800
+      config: $base-config
+      contract: $Token3
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken3_Token7_1_2
+        value: 800
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale6_Token12_1_2_400
+      config: $base-config
+      contract: $Token6
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken6_Token12_1_2
+        value: 400
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale6_Token13_1_2_400
+      config: $base-config
+      contract: $Token6
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken6_Token13_1_2
+        value: 400
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale12_Token24_1_2_200
+      config: $base-config
+      contract: $Token12
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken12_Token24_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale12_Token25_1_2_200
+      config: $base-config
+      contract: $Token12
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken12_Token25_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale13_Token26_1_2_200
+      config: $base-config
+      contract: $Token13
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken13_Token26_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale13_Token27_1_2_200
+      config: $base-config
+      contract: $Token13
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken13_Token27_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale7_Token14_1_2_400
+      config: $base-config
+      contract: $Token7
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken7_Token14_1_2
+        value: 400
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale7_Token15_1_2_400
+      config: $base-config
+      contract: $Token7
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken7_Token15_1_2
+        value: 400
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale14_Token28_1_2_200
+      config: $base-config
+      contract: $Token14
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken14_Token28_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale14_Token29_1_2_200
+      config: $base-config
+      contract: $Token14
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken14_Token29_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale15_Token30_1_2_200
+      config: $base-config
+      contract: $Token15
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken15_Token30_1_2
+        value: 200
+      burn_cap: '0.031'
+  - run:
+      alias: AllowanceAlice_Sale15_Token31_1_2_200
+      config: $base-config
+      contract: $Token15
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken15_Token31_1_2
+        value: 200
+      burn_cap: '0.031'

@@ -1,0 +1,169 @@
+
+config:
+  base-config: &base-config
+    tezos_client_path:
+      "tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com -P 20000"
+    user_address:
+      tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path:
+      /Users/michaelklein/Coding/morley-framework/lorentz-contract-param
+    stack_path:
+      /Users/michaelklein/Coding/morley-framework/lorentz-contract-param/stack
+
+  sale-config: &sale-config
+    <<: *base-config
+    param_path:
+      /Users/michaelklein/Coding/morley-framework/lorentz-contract-sale
+    stack_path:
+      /Users/michaelklein/Coding/morley-framework/lorentz-contract-sale/stack
+
+  base-config-bob:
+    <<: *base-config
+    user_address:
+      tz1hUXU4DPHPyrEEekqhmEEJvdCpB2gP4qtp
+
+  sale-config-bob:
+    <<: *sale-config
+    user_address:
+      tz1hUXU4DPHPyrEEekqhmEEJvdCpB2gP4qtp
+
+do:
+  - user:
+      name:
+        Sandy
+      address:
+        tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+
+  - user:
+      name:
+        SandyBob
+      address:
+        tz1hUXU4DPHPyrEEekqhmEEJvdCpB2gP4qtp
+
+  - originate: &originate-token
+      alias: Token1
+      config: $base-config
+      command: "lorentz-contract print --name ManagedLedger"
+      storage_command: "lorentz-contract-storage ManagedLedgerBabylon"
+      initial_storage:
+        admin: $Sandy
+      burn_cap: 4.675
+
+  - originate:
+      <<: *originate-token
+      alias: Token2
+
+  - originate:
+      alias: Sale1
+      config: $sale-config
+      command: "lorentz-contracts-sale print"
+      storage_command: "lorentz-contracts-sale init"
+      initial_storage:
+        admin: $Sandy
+        held: $Token1
+        wallet: $Sandy
+        wanted: $Token2
+        held-price: "1"
+        wanted-price: "1"
+      burn_cap: "1.749"
+
+  - run: &mint
+      alias: MintSandy1
+      config: $base-config
+      contract: $Token1
+      command: "lorentz-contract-param ManagedLedgerBabylon-mint"
+      parameters:
+        to: $Sandy
+        value: "10"
+      burn_cap: "0.074"
+
+  - run: &approve
+      alias: AllowanceSandySale1
+      config: $base-config
+      contract: $Token1
+      command: "lorentz-contract-param ManagedLedgerBabylon-approve"
+      parameters:
+        spender: $Sale1
+        value: "10"
+      burn_cap:  "0.031"
+
+  - run:
+      <<: *mint
+      alias: MintSandyBob1
+      contract: $Token2
+      parameters:
+        to: $SandyBob
+
+  - run:
+      <<: *approve
+      alias: AllowanceSandyBobSale1
+      config: $base-config-bob
+      contract: $Token2
+      parameters:
+        spender: $Sale1
+
+  - run: &purchase
+      alias: PurchaseSale1
+      config: $sale-config-bob
+      contract: $Sale1
+      command: "lorentz-contracts-sale purchase"
+      parameters:
+        held-price: "1"
+        wanted-price: "1"
+      burn_cap:  "0.148"
+
+  - originate: &originate-nat-storage
+      alias: SandyPostSaleBalance
+      config: $base-config
+      command: "lorentz-contract print --name NatStorageContract"
+      storage_command: "ruby -e 'puts ARGV[1]' -- "
+      initial_storage:
+        initial: "0"
+      burn_cap:  "0.295"
+
+  - originate:
+      <<: *originate-nat-storage
+      alias: SandyBobPostSaleBalance
+
+  - originate:
+      <<: *originate-nat-storage
+      alias: SandyPostSaleBalanceLeft
+
+  - originate:
+      <<: *originate-nat-storage
+      alias: SandyBobPostSaleBalanceLeft
+
+  - run: &get-balance
+      alias: SandyPostSaleGetBalance
+      config: $base-config
+      contract: $Token2
+      command: "lorentz-contract-param ManagedLedgerBabylon-getBalance"
+      parameters:
+        account: $Sandy
+        callback-contract: $SandyPostSaleBalance
+      burn_cap:  "0.000001"
+
+  - run:
+      <<: *get-balance
+      alias: SandyBobPostSaleGetBalance
+      contract: $Token1
+      parameters:
+        account: $SandyBob
+        callback-contract: $SandyBobPostSaleBalance
+
+  - run:
+      <<: *get-balance
+      alias: SandyPostSaleGetBalanceLeft
+      contract: $Token1
+      parameters:
+        account: $Sandy
+        callback-contract: $SandyPostSaleBalanceLeft
+
+  - run:
+      <<: *get-balance
+      alias: SandyBobPostSaleGetBalanceLeft
+      contract: $Token2
+      parameters:
+        account: $SandyBob
+        callback-contract: $SandyBobPostSaleBalanceLeft
+

@@ -1,0 +1,130 @@
+<<: !include "taco_sale.yaml"
+
+config:
+  base-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param"
+    stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-param/stack"
+
+  sale-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale"
+    stack_path: "/Users/michaelklein/Coding/morley-framework/lorentz-contract-sale/stack"
+
+  user-base-config: &user-base-config
+    tezos_client_path:
+      "tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com -P 20000"
+    user_address:
+      tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: '.'
+    stack_path: null
+
+  user-sale-config: &user-sale-config
+    <<: *user-base-config
+    param_path: '.'
+
+do:
+  - user:
+      name:
+        Token16
+      address:
+        KT1EsK59V5bBx9pGfW3CvfKJ6wM9YN7SEmNP
+
+  - user:
+      name:
+        Bob
+      address:
+        tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+
+  - originate: &originate-token
+      alias: TokenBob
+      config: $user-base-config
+      command: lorentz-contract print --name ManagedLedger
+      storage_command: lorentz-contract-storage ManagedLedgerBabylon
+      initial_storage:
+        admin: $Bob
+      burn_cap: '4.675'
+
+  - run: &mint-token
+      alias: MintTokenBob_Bob_100
+      config: $user-base-config
+      contract: $TokenBob
+      command: lorentz-contract-param ManagedLedgerBabylon-mint
+      parameters:
+        to: $Bob
+        value: 100
+      burn_cap: '0.074'
+
+  - user:
+      name: SaleToken17_TokenBob_1_1
+      address: KT1UvFrCuk8oJqbhJQVGPPfUqKo4FBH6okwr
+
+  - run: &allowance
+      alias: SaleToken17_TokenBob_1_1_100
+      config: $user-base-config
+      contract: $TokenBob
+      command: lorentz-contract-param ManagedLedgerBabylon-approve
+      parameters:
+        spender: $SaleToken17_TokenBob_1_1
+        value: 100
+      burn_cap: '0.031'
+
+  - run: &purchase
+      alias: PurchaseToken17
+      config: $user-sale-config
+      contract: $SaleToken17_TokenBob_1_1
+      command: "lorentz-contracts-sale purchase"
+      parameters:
+        held-price: "1"
+        wanted-price: "1"
+      burn_cap:  "0.148"
+
+  - originate: &originate-nat-storage
+      alias: BobPostSaleBalanceToken17
+      config: $user-base-config
+      command: "lorentz-contract print --name NatStorageContract"
+      storage_command: "ruby -e 'puts ARGV[1]' -- "
+      initial_storage:
+        initial: "0"
+      burn_cap:  "0.295"
+
+  - originate:
+      <<: *originate-nat-storage
+      alias: BobPostSaleBalanceTokenBob
+      config: $user-base-config
+
+  - run: &get-balance
+      alias: BobPostSaleGetBalanceToken17
+      config: $user-base-config
+      contract: $Token17
+      command: "lorentz-contract-param ManagedLedgerBabylon-getBalance"
+      parameters:
+        account: $Bob
+        callback-contract: $BobPostSaleBalanceToken17
+      burn_cap:  "0.000001"
+
+  - run:
+      <<: *get-balance
+      alias: BobPostSaleGetBalanceTokenBob
+      contract: $TokenBob
+      parameters:
+        callback-contract: $BobPostSaleBalanceTokenBob
+
+  # - originate: &originate-sale
+  #     alias: SaleTokenBob_Token16
+  #     config: $user-sale-config
+  #     command: lorentz-contracts-sale print
+  #     storage_command: lorentz-contracts-sale init
+  #     initial_storage:
+  #       admin: $Bob
+  #       held: $TokenBob
+  #       wallet: $Bob
+  #       wanted: $Token16
+  #       held-price: '1'
+  #       wanted-price: '2'
+  #     burn_cap: '1.749'
+

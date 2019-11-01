@@ -1,0 +1,14 @@
+---
+config:
+  base-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "."
+  sale-config:
+    tezos_client_path: tezos-client -A ec2-18-190-24-202.us-east-2.compute.amazonaws.com
+      -P 20000
+    user_address: tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU
+    param_path: "."
+originated: {}
+ran: {}
