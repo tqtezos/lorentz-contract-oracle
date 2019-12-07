@@ -1,9 +1,9 @@
 <<: !include "./hpack/module.yaml"
 
 <<: *meta
-name:                lorentz-contracts-sale
+name:                lorentz-contract-oracle
 version:             0.1.0.1
-github:              "tqtezos/lorentz-contracts-sale"
+github:              "tqtezos/lorentz-contract-oracle"
 license:             BSD3
 author:              "Michael J. Klein TQ Tezos"
 maintainer:          "michael@tqgroup.io"
@@ -12,7 +12,7 @@ copyright:           "2019 Michael J. Klein TQ Tezos"
 extra-source-files:
 - README.md
 
-description:         Please see the README on GitHub at <https://github.com/tqtezos/lorentz-contracts-sale#readme>
+description:         Please see the README on GitHub at <https://github.com/tqtezos/lorentz-contract-oracle#readme>
 
 library:
   <<: *lorentz-lib-common
@@ -33,9 +33,11 @@ library:
     - constraints
     - binary
     - lorentz-contracts
+    - lorentz-contract-param
+    - optparse-applicative
 
 executables:
-  lorentz-contracts-sale:
+  lorentz-contract-oracle:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -43,7 +45,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - lorentz-contracts-sale
+    - lorentz-contract-oracle
     - optparse-applicative
     - morley
     - named
@@ -53,7 +55,7 @@ executables:
     - ansi-wl-pprint
 
 tests:
-  lorentz-contracts-sale-test:
+  lorentz-contract-oracle-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -61,4 +63,4 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - lorentz-contracts-sale
+    - lorentz-contract-oracle
