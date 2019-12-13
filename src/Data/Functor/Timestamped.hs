@@ -69,7 +69,7 @@ assertBeforeNow_ :: Timestamped a & s :-> s
 assertBeforeNow_ = do
   getTimestamp
   now
-  assertLe $ mkMTextUnsafe "in future"
+  assertGt $ mkMTextUnsafe "in future"
 
 -- | `assertBeforeNow_`, but keep the `Timestamped` value
 assertBeforeNow :: Timestamped a & s :-> Timestamped a & s
@@ -78,11 +78,12 @@ assertBeforeNow = do
   dip assertBeforeNow_
 
 -- | Assert the `Timestamped` value at the head of the stack is strictly newer
+-- (new_value, previous_value)
 assertNewer_ :: Timestamped a & Timestamped a' & s :-> s
 assertNewer_ = do
   getTimestamp
   dip getTimestamp
-  assertLe $ mkMTextUnsafe "not newer"
+  assertGt $ mkMTextUnsafe "not newer"
 
 -- | Duplicate the first two values on the stack
 dupPair :: a & b & s :-> a & b & a & b & s

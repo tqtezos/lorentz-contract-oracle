@@ -107,7 +107,7 @@ unStorage = coerce_
 
 oracleContract ::
      forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)
-  => (forall s. a & a & s :-> a & a & s)
+  => (forall s. a & a & s :-> a & a & s) -- ^ new_value, previous_value
   -> Contract (Parameter a) (Storage a)
 oracleContract check = do
   unpair
