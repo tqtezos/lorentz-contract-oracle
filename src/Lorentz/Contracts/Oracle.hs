@@ -162,11 +162,13 @@ uncheckedOracleContract ::
 uncheckedOracleContract =
   oracleContract nop
 
+-- `assertBeforeNow` can fail because of the semantics of `now`,
+-- i.e. that it returns (roughly) the timestamp of the _last_ block.
 timestampedOracleContract ::
      forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)
   => Contract (Parameter (Timestamped a)) (Storage (Timestamped a))
 timestampedOracleContract =
   oracleContract $ do
-    assertBeforeNow
+    -- assertBeforeNow
     assertNewer
 
