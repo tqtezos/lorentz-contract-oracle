@@ -1,4 +1,11 @@
 
+# Intro
+
+You can find a deployed copy of the oracle contract that receives
+`AAPL` stock prices every ~30 seconds [here](https://better-call.dev/babylon/KT1EGbAxguaWQFkV3Egb2Z1r933MWuEYyrJS/operations)
+
+# Setup
+
 To update `requirements.txt`:
 
 ```bash
