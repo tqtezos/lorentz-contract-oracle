@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "tq.oracles.ticker.app", // push_to_oracle",
+        "project_name": "stock-ticker",
+        "runtime": "python3.7",
+        "s3_bucket": "zappa-oracle-contract",
+        "aws_region": "us-east-1",
+        "role_name": "demo-dev-ZappaLambdaExecutionRole"
+    }
+}
