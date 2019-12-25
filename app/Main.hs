@@ -40,6 +40,8 @@ import Text.PrettyPrint.ANSI.Leijen.Internal (Doc, linebreak)
 import qualified Lorentz.Contracts.Oracle.CmdLnArgs as OracleCmdLnArgs
 -- import qualified Lorentz.Contracts.Admin.Simple as SimpleAdmin
 import qualified Lorentz.Contracts.Admin.Simple.CmdLnArgs as SimpleAdminCmdLnArgs
+-- import qualified Lorentz.Contracts.Admin.Signed as SignedAdmin
+import qualified Lorentz.Contracts.Admin.Simple.CmdLnArgs as SignedAdminCmdLnArgs
 
 -- import Lorentz.Contracts.Sale (Price, TokenAddr)
 -- import Lorentz.Contracts.Sale (saleContract)
@@ -95,6 +97,7 @@ showValue = printTypedValue False . toVal
 data CmdLnArgs
   = OracleCmdLnArgs { oracleCmdLnArgs :: OracleCmdLnArgs.CmdLnArgs }
   | SimpleAdminCmdLnArgs { simpleAdminCmdLnArgs :: SimpleAdminCmdLnArgs.CmdLnArgs }
+  | SignedAdminCmdLnArgs { signedAdminCmdLnArgs :: SignedAdminCmdLnArgs.CmdLnArgs }
   -- = Print (Maybe FilePath) Bool
   -- | Init
   --     { adminAddress :: !Address
@@ -161,6 +164,7 @@ argParser :: Opt.Parser CmdLnArgs
 argParser = Opt.hsubparser $ mconcat
   [ Opt.command "Oracle" $ fmap OracleCmdLnArgs $ Opt.info OracleCmdLnArgs.argParser OracleCmdLnArgs.infoMod
   , Opt.command "SimpleAdmin" $ fmap SimpleAdminCmdLnArgs $ Opt.info SimpleAdminCmdLnArgs.argParser SimpleAdminCmdLnArgs.infoMod
+  , Opt.command "Signed" $ fmap SignedAdminCmdLnArgs $ Opt.info SignedAdminCmdLnArgs.argParser SignedAdminCmdLnArgs.infoMod
   ]
   -- [ printSubCmd
   -- , initSubCmd
@@ -275,4 +279,5 @@ main = do
           OracleCmdLnArgs.runCmdLnArgs oracleCmdLnArgs
         SimpleAdminCmdLnArgs {..} ->
           SimpleAdminCmdLnArgs.runCmdLnArgs simpleAdminCmdLnArgs
-
+        SignedAdminCmdLnArgs {..} ->
+          SignedAdminCmdLnArgs.runCmdLnArgs signedAdminCmdLnArgs
