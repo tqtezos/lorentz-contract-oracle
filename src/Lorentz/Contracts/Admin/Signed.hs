@@ -48,7 +48,7 @@ deriving instance IsoValue a => IsoValue (Parameter' a)
 
 data Storage' =
   Storage'
-    { admin :: PublicKey
+    { admin          :: PublicKey
     , oracleContract :: Address
     }
   deriving  (Generic)
@@ -81,10 +81,10 @@ toStorage = do
 unStorage :: Storage & s :-> (Natural, (PublicKey, Address)) & s
 unStorage = coerce_
 
-simpleAdminContract ::
+signedAdminContract ::
      forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)
   => Contract (Parameter a) Storage
-simpleAdminContract = do
+signedAdminContract = do
   unpair
   -- ensure signed
   dip $ do

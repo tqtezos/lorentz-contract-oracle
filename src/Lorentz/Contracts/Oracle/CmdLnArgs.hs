@@ -283,7 +283,7 @@ argParser = Opt.hsubparser $ mconcat
 
     updateAdminSubCmd =
       mkCommandParser "update-admin"
-      (UpdateAdmin <$> parseAddress "callback")
+      (UpdateAdmin <$> parseAddress "admin")
       "update admin"
 
 infoMod :: Opt.InfoMod CmdLnArgs
