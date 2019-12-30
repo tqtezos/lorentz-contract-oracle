@@ -12,7 +12,12 @@ import Text.Read (Read(..))
 import Lorentz hiding (get)
 import Michelson.Text
 
--- | A value with a counter
+import Control.Monad.Trans.Writer.Strict
+import qualified Options.Applicative as Opt
+
+import Lorentz.Contracts.Parse (parseNatural)
+
+-- | A value with a `Natural` counter
 data WithCounter a = WithCounter
   { counter :: !Natural
   , value   :: !a
@@ -28,6 +33,41 @@ deriving instance Read a => Read (WithCounter a)
 deriving instance Show a => Show (WithCounter a)
 
 deriving instance IsoValue a => IsoValue (WithCounter a)
+
+-- | Convert `WithCounter` to @`Writer` (`Sum` `Natural`)@.
+--
+-- Used to define the `Monad` instance
+toWriter :: WithCounter a -> Writer (Sum Natural) a
+toWriter WithCounter {..} =
+  writer (value, Sum counter)
+
+-- | Convert @`Writer` (`Sum` `Natural`)@ to `WithCounter`.
+--
+-- Used to define the `Monad` instance
+unWriter :: Writer (Sum Natural) a -> WithCounter a
+unWriter =
+  (\(value, Sum counter) ->
+    WithCounter counter value
+  ) . runWriter
+
+instance Applicative WithCounter where
+  pure = unWriter . pure
+
+  fs <*> xs =
+    unWriter $
+    toWriter fs <*> toWriter xs
+
+instance Monad WithCounter where
+  xs >>= f =
+    unWriter $
+    toWriter xs >>= toWriter . f
+
+-- | Parse a `Natural` counter and value, given a `Opt.Parser` for the value
+parseWithCounter :: Opt.Parser a -> Opt.Parser (WithCounter a)
+parseWithCounter p =
+  WithCounter <$>
+    parseNatural "counter" <*>
+    p
 
 -- | Wrap `WithCounter`
 toWithCounter :: forall a s. Natural & a & s :-> WithCounter a & s

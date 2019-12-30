@@ -35,6 +35,7 @@ library:
     - lorentz-contracts
     - lorentz-contract-param
     - optparse-applicative
+    - transformers
 
 executables:
   lorentz-contract-oracle:

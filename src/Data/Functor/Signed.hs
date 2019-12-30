@@ -1,20 +1,15 @@
 {-# LANGUAGE RebindableSyntax #-}
 
-{-# OPTIONS -Wno-missing-export-lists -Wno-unused-do-bind -Wno-partial-fields #-}
+{-# OPTIONS -Wno-missing-export-lists -Wno-unused-do-bind -Wno-partial-fields -Wno-orphans #-}
 
 module Data.Functor.Signed where
 
-import Prelude hiding ((>>), get)
-import Control.Applicative
-import qualified Control.Monad as Monad
-import Control.Monad.Fail
 import GHC.Generics (Generic, Generic1)
-import Text.Show (Show(..))
-import Text.Read (Read(..))
-import Data.Functor
-import Data.Foldable
-import Data.Traversable
+import Prelude hiding ((>>), get)
 import Text.ParserCombinators.ReadPrec (look, get)
+import Text.Read (Read(..))
+import Text.Show (Show(..))
+import qualified Control.Monad as Monad
 
 import Lorentz hiding (get)
 import Michelson.Text

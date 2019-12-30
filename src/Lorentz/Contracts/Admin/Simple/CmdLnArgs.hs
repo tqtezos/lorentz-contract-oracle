@@ -61,7 +61,7 @@ argParser = Opt.hsubparser $ mconcat
     printSubCmd =
       mkCommandParser "print"
       (Print <$>
-       OracleCmdLnArgs.parseSomeT "value-type" <*>
+       OracleCmdLnArgs.parseSomeT "value" <*>
        outputOptions <*>
        onelineOption)
       "Dump the Oracle contract in form of Michelson code"
