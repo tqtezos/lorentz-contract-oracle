@@ -12,8 +12,8 @@ can send a transaction with an update signed by an admin _key_.
 ```bash
 ❯❯❯ alpha-client --wait none originate contract NatOracleSignedAdmin \
   transferring 0 from $ALICE_ADDRESS running \
-  "$(./stack exec -- lorentz-contract-oracle SignedAdmin print --valueType "nat" --oneline)" \
-  --init "$(./stack exec -- lorentz-contract-oracle SignedAdmin init \
+  "$(./stack exec -- lorentz-contract-oracle Signed print --value-typeType "nat" --oneline)" \
+  --init "$(./stack exec -- lorentz-contract-oracle Signed init \
   --oracleContract $ORACLE_ADDRESS \
   --admin "$(get_public_key alice)")" --burn-cap 0.938
 
