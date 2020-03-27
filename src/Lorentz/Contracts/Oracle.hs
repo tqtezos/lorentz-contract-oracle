@@ -69,14 +69,14 @@ toUpdateValue :: forall a s. KnownValue a => a & s :-> Parameter a & s
 toUpdateValue = do
   left
   right
-  coerce_ @(Either (View () a) (Either a Address)) @(Parameter a)
+  forcedCoerce_ @(Either (View () a) (Either a Address)) @(Parameter a)
 
 -- | Wrap `UpdateAdmin`
 toUpdateAdmin :: forall a s. KnownValue a => Address & s :-> Parameter a & s
 toUpdateAdmin = do
   right
   right
-  coerce_ @(Either (View () a) (Either a Address)) @(Parameter a)
+  forcedCoerce_ @(Either (View () a) (Either a Address)) @(Parameter a)
 
 data Storage a =
   Storage
@@ -99,11 +99,11 @@ deriving instance IsoValue a => IsoValue (Storage a)
 toStorage :: a & Address & s :-> Storage a & s
 toStorage = do
   pair
-  coerce_
+  forcedCoerce_
 
 -- | Unwrap `Storage`
 unStorage :: Storage a & s :-> (a, Address) & s
-unStorage = coerce_
+unStorage = forcedCoerce_
 
 oracleContract ::
      forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)

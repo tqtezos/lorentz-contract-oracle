@@ -32,8 +32,10 @@ library:
     - aeson
     - constraints
     - binary
-    - lorentz-contracts
-    - lorentz-contract-param
+    - morley-ledgers
+    - morley-lorentz
+    # - lorentz-contracts
+    # - lorentz-contract-param
     - optparse-applicative
     - transformers
 

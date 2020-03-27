@@ -51,12 +51,12 @@ deriving instance IsoValue a => IsoValue (Timestamped a)
 toTimestamped :: forall a s. Timestamp & a & s :-> Timestamped a & s
 toTimestamped = do
   pair
-  coerce_ @(Timestamp, a) @(Timestamped a)
+  forcedCoerce_ @(Timestamp, a) @(Timestamped a)
 
 -- | Unwrap `Timestamped`
 unTimestamped :: forall a s. Timestamped a & s :-> (Timestamp, a) & s
 unTimestamped = do
-  coerce_ @(Timestamped a) @(Timestamp, a)
+  forcedCoerce_ @(Timestamped a) @(Timestamp, a)
 
 -- | `unTimestamped` `>>` `car`
 getTimestamp :: Timestamped a & s :-> Timestamp & s

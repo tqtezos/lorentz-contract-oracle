@@ -73,12 +73,12 @@ parseWithCounter p =
 toWithCounter :: forall a s. Natural & a & s :-> WithCounter a & s
 toWithCounter = do
   pair
-  coerce_ @(Natural, a) @(WithCounter a)
+  forcedCoerce_ @(Natural, a) @(WithCounter a)
 
 -- | Unwrap `WithCounter`
 unWithCounter :: forall a s. WithCounter a & s :-> (Natural, a) & s
 unWithCounter = do
-  coerce_ @(WithCounter a) @(Natural, a)
+  forcedCoerce_ @(WithCounter a) @(Natural, a)
 
 -- | Assert the counter matches the given value
 assertWithCounter_ :: WithCounter a & Natural & s :-> a & s

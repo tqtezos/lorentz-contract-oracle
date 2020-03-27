@@ -60,11 +60,11 @@ data Storage' =
 toStorage' :: PublicKey & Address & s :-> Storage' & s
 toStorage' = do
   pair
-  coerce_
+  forcedCoerce_
 
 -- | Unwrap `Storage'`
 unStorage' :: Storage' & s :-> (PublicKey, Address) & s
-unStorage' = coerce_
+unStorage' = forcedCoerce_
 
 type Parameter a = Signed (WithCounter (Parameter' a))
 
@@ -75,11 +75,11 @@ toStorage :: Natural & PublicKey & Address & s :-> Storage & s
 toStorage = do
   dip pair
   pair
-  coerce_
+  forcedCoerce_
 
 -- | Unwrap `Storage`
 unStorage :: Storage & s :-> (Natural, (PublicKey, Address)) & s
-unStorage = coerce_
+unStorage = forcedCoerce_
 
 signedAdminContract ::
      forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)

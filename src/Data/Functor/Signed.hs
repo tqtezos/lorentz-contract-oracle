@@ -54,12 +54,12 @@ deriving instance IsoValue a => IsoValue (Signed a)
 toSigned :: forall a s. Signature & a & s :-> Signed a & s
 toSigned = do
   pair
-  coerce_ @(Signature, a) @(Signed a)
+  forcedCoerce_ @(Signature, a) @(Signed a)
 
 -- | Unwrap `Signed`
 unSigned :: forall a s. Signed a & s :-> (Signature, a) & s
 unSigned = do
-  coerce_ @(Signed a) @(Signature, a)
+  forcedCoerce_ @(Signed a) @(Signature, a)
 
 -- | `checkSignature` for `Signed`
 assertSigned_ :: (KnownValue a, NoOperation a, NoBigMap a)

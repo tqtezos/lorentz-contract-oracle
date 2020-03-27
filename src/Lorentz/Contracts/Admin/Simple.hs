@@ -62,11 +62,11 @@ data Storage =
 toStorage :: Address & Address & s :-> Storage & s
 toStorage = do
   pair
-  coerce_
+  forcedCoerce_
 
 -- | Unwrap `Storage`
 unStorage :: Storage & s :-> (Address, Address) & s
-unStorage = coerce_
+unStorage = forcedCoerce_
 
 simpleAdminContract ::
      forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)
