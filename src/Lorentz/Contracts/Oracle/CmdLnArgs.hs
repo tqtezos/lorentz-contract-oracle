@@ -157,7 +157,7 @@ singTypeableT (STc ct) =
 singTypeableT STKey = Dict
 singTypeableT STUnit = Dict
 singTypeableT STSignature = Dict
--- singTypeableT STChainId = Dict
+singTypeableT STChainId = Dict
 singTypeableT (STOption st) =
   withDict (singTypeableT st) $
   Dict
@@ -210,7 +210,7 @@ singIT (STc ct) =
 singIT STKey = Dict
 singIT STUnit = Dict
 singIT STSignature = Dict
--- singIT STChainId = Dict
+singIT STChainId = Dict
 singIT (STOption st) =
   withDict (singIT st) $
   Dict
@@ -278,6 +278,7 @@ fromUntypedT :: U.T -> T
 fromUntypedT (U.Tc ct) = Tc ct
 fromUntypedT U.TKey = TKey
 fromUntypedT U.TUnit = TUnit
+fromUntypedT U.TChainId = TChainId
 fromUntypedT U.TSignature = TSignature
 fromUntypedT (U.TOption x) = TOption $ fromUntypedT' x
 fromUntypedT (U.TList x) = TList $ fromUntypedT' x
