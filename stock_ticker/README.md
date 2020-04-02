@@ -9,7 +9,7 @@ You can find a deployed copy of the oracle contract that receives
 To update `requirements.txt`:
 
 ```bash
-pip3 freeze >| requirements.txt 
+pip3 freeze >| requirements.txt
 ```
 
 To run the Flask app:
@@ -22,6 +22,14 @@ To build the `Docker` image:
 
 ```bash
 docker build -t oracle-stock-ticker:latest .
+```
+
+To push it to DockerHub:
+
+```bash
+docker images
+docker tag 68861b674784 tqtezos/oracle-stock-ticker:latest 
+docker push tqtezos/oracle-stock-ticker
 ```
 
 To run:
