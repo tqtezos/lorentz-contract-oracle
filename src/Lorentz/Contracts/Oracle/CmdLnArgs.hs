@@ -1,4 +1,4 @@
-{-# OPTIONS -Wno-missing-export-lists -Wno-unused-do-bind -Wno-partial-fields #-}
+{-# OPTIONS -Wno-missing-export-lists -Wno-unused-do-bind -Wno-partial-fields -Wno-orphans #-}
 
 module Lorentz.Contracts.Oracle.CmdLnArgs where
 
@@ -38,11 +38,6 @@ import qualified Data.Text.Lazy.IO as TL
 import Data.Constraint
 import Data.Singletons
 import Text.Megaparsec (eof)
-
--- import Lorentz.Contracts.Util ()
--- import Lorentz.Contracts.SomeContractParam
--- import Lorentz.Contracts.Parse
--- import qualified Lorentz.Contracts.GenericMultisig.Wrapper as G
 
 import qualified Lorentz.Contracts.Oracle as Oracle
 

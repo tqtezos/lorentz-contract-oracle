@@ -12,9 +12,6 @@ import Lorentz hiding (get)
 import Michelson.Text
 
 import Data.Functor.Timestamped
--- import Lorentz.Contracts.Util ()
-
--- type Entrypoint param store = '[ param, store] :-> ContractOut store
 
 -- | Assert sender is the given address or fail with an error
 assertAdmin_ :: Address & s :-> s
@@ -28,16 +25,6 @@ assertAdmin = do
   dup
   dip assertAdmin_
 
-
--- instance Functor (View a) where
---   fmap _ = coerce
-
--- instance Foldable (View a) where
---   foldr _ = const
-
--- instance Traversable (View a) where
---   traverse _ = pure . coerce
-
 data Parameter a
   = GetValue
       { viewValue :: View () a
@@ -50,8 +37,6 @@ data Parameter a
       }
   deriving  (Generic)
   deriving  (Generic1)
-
--- deriving instance Read a => Read (Parameter a)
 
 deriving instance Show a => Show (Parameter a)
 
@@ -88,8 +73,6 @@ data Storage a =
   deriving  (Functor)
   deriving  (Foldable)
   deriving  (Traversable)
-
--- deriving instance Read a => Read (Storage a)
 
 deriving instance Show a => Show (Storage a)
 
