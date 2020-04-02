@@ -7,18 +7,14 @@ module Lorentz.Contracts.Oracle where
 import Prelude hiding ((>>), drop, swap)
 import GHC.Generics (Generic, Generic1)
 import Text.Show (Show(..))
-import Text.Read (Read(..))
-import Data.Foldable
-import Data.Coerce
-import Data.Function (const)
 
 import Lorentz hiding (get)
 import Michelson.Text
 
 import Data.Functor.Timestamped
-import Lorentz.Contracts.Util ()
+-- import Lorentz.Contracts.Util ()
 
-type Entrypoint param store = '[ param, store] :-> ContractOut store
+-- type Entrypoint param store = '[ param, store] :-> ContractOut store
 
 -- | Assert sender is the given address or fail with an error
 assertAdmin_ :: Address & s :-> s
@@ -33,14 +29,14 @@ assertAdmin = do
   dip assertAdmin_
 
 
-instance Functor (View a) where
-  fmap _ = coerce
+-- instance Functor (View a) where
+--   fmap _ = coerce
 
-instance Foldable (View a) where
-  foldr _ = const
+-- instance Foldable (View a) where
+--   foldr _ = const
 
-instance Traversable (View a) where
-  traverse _ = pure . coerce
+-- instance Traversable (View a) where
+--   traverse _ = pure . coerce
 
 data Parameter a
   = GetValue
@@ -54,15 +50,19 @@ data Parameter a
       }
   deriving  (Generic)
   deriving  (Generic1)
-  deriving  (Functor)
-  deriving  (Foldable)
-  deriving  (Traversable)
 
-deriving instance Read a => Read (Parameter a)
+-- deriving instance Read a => Read (Parameter a)
 
 deriving instance Show a => Show (Parameter a)
 
 deriving instance IsoValue a => IsoValue (Parameter a)
+
+instance ParameterHasEntryPoints (Parameter Natural) where
+  type ParameterEntryPointsDerivation (Parameter Natural) = EpdPlain
+
+instance ParameterHasEntryPoints (Parameter (Timestamped Natural)) where
+  type ParameterEntryPointsDerivation (Parameter (Timestamped Natural)) = EpdPlain
+
 
 -- | Wrap `UpdateValue`
 toUpdateValue :: forall a s. KnownValue a => a & s :-> Parameter a & s
@@ -89,7 +89,7 @@ data Storage a =
   deriving  (Foldable)
   deriving  (Traversable)
 
-deriving instance Read a => Read (Storage a)
+-- deriving instance Read a => Read (Storage a)
 
 deriving instance Show a => Show (Storage a)
 
@@ -106,7 +106,7 @@ unStorage :: Storage a & s :-> (a, Address) & s
 unStorage = forcedCoerce_
 
 oracleContract ::
-     forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)
+     forall a. (NiceParameter a)
   => (forall s. a & a & s :-> a & a & s) -- ^ new_value, previous_value
   -> Contract (Parameter a) (Storage a)
 oracleContract check = do
@@ -118,7 +118,7 @@ oracleContract check = do
     )
 
 getValue ::
-     forall a. (KnownValue a, NoOperation a, NoBigMap a)
+     forall a. (NiceParameter a)
   => Entrypoint (View () a) (Storage a)
 getValue = do
   view_ $ do
@@ -127,7 +127,7 @@ getValue = do
     car
 
 updateValue ::
-     forall a. KnownValue a
+     forall a. ()
   => (forall s. a & a & s :-> a & a & s)
   -> Entrypoint a (Storage a)
 updateValue check = do
@@ -157,7 +157,7 @@ updateAdmin = do
 --
 
 uncheckedOracleContract ::
-     forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)
+     forall a. NiceParameter a
   => Contract (Parameter a) (Storage a)
 uncheckedOracleContract =
   oracleContract nop
@@ -165,7 +165,7 @@ uncheckedOracleContract =
 -- `assertBeforeNow` can fail because of the semantics of `now`,
 -- i.e. that it returns (roughly) the timestamp of the _last_ block.
 timestampedOracleContract ::
-     forall a. (IsoValue a, KnownValue a, NoOperation a, NoBigMap a)
+     forall a. NiceParameter a
   => Contract (Parameter (Timestamped a)) (Storage (Timestamped a))
 timestampedOracleContract =
   oracleContract $ do

@@ -38,6 +38,7 @@ library:
     # - lorentz-contract-param
     - optparse-applicative
     - transformers
+    - megaparsec
 
 executables:
   lorentz-contract-oracle:
