@@ -2,7 +2,7 @@
 
 <<: *meta
 name:                lorentz-contract-oracle
-version:             0.1.0.1
+version:             0.2.0.0
 github:              "tqtezos/lorentz-contract-oracle"
 license:             BSD3
 author:              "Michael J. Klein TQ Tezos"
