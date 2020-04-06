@@ -1,5 +1,9 @@
 resolver: lts-14.15
 
+
+
+extra-deps:
+
 extra-deps:
 - aeson-options-0.1.0
 - base58-bytestring-0.1.0
@@ -9,6 +13,7 @@ extra-deps:
 - show-type-0.1.1
 - git: https://github.com/int-index/caps.git
   commit: ab4345eabd58fc6f05d3b46bea2c5acdba3ec6f8
+
 # tezos-bake-monitor-lib and its deps which are used in morley-client
 - git:
     https://gitlab.com/obsidian.systems/tezos-bake-monitor-lib.git
@@ -21,35 +26,30 @@ extra-deps:
 - dependent-sum-0.6.2.0
 - dependent-sum-template-0.1.0.0
 - constraints-extras-0.3.0.2@sha256:bf6884be65958e9188ae3c9e5547abfd6d201df021bff8a4704c2c4fe1e1ae5b
-- morley-1.0.0
-- morley-prelude-0.3.0@sha256:9e9473ac14cfa206adf0a3700764c0251de05042f1fe45daf9cb8556079ae663,2085
+- morley-1.1.0
+- lorentz-0.2.0
+- morley-prelude-0.3.0
 
-#   # morley-1.0.0 doesn't come with a version of morley-ledgers on hackage
+# morley-1.1.0 doesn't come with a version of these packages on hackage
 - git:
     https://gitlab.com/morley-framework/morley.git
     # ^ CI cannot use ssh, so we use http clone here
   commit:
-    55db70779cc6ea3eb8507752b1397f3f602eb9c5 # 1.0.0
+    9f90fd3e593212c00e937fdaf8e5e3b094605881 # 1.1.0
   subdirs:
-    # - .
-    # - prelude
-    # - morley-upgradeable
-    # - morley-ledgers
-    # - morley-ledgers-test
-    # - indigo
-    # - morley-nettest
-
-    # - .
-    # - prelude
-    - tasty-hunit-compat
-    - morley-upgradeable
-    - morley-ledgers
-    - morley-ledgers-test
-    - morley-multisig
-    - morley-lorentz
-    - indigo
-    - morley-nettest
-    - morley-client
+    - code/indigo
+    - code/indigo/tutorial
+    # - code/lorentz
+    # - code/morley
+    - code/morley-client
+    - code/morley-ledgers
+    - code/morley-ledgers-test
+    - code/morley-multisig
+    - code/morley-nettest
+    # - code/morley-prelude
+    - code/morley-upgradeable
+    - code/morley-debugger
+    - code/tasty-hunit-compat
 
 nix:
   shell-file: shell.nix
