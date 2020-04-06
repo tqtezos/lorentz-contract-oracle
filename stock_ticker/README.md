@@ -1,4 +1,6 @@
 
+NOTE: This is currently a WIP of being updated for `Carthage`
+
 # Intro
 
 You can find a deployed copy of the oracle contract that receives

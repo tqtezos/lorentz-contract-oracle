@@ -3,7 +3,6 @@
 module Lorentz.Contracts.Oracle.CmdLnArgs where
 
 import Data.Char
-import GHC.Generics
 import Control.Applicative
 import Control.Monad
 import Text.Show (Show(..))
@@ -29,7 +28,6 @@ import Michelson.Typed.Scope
 import Michelson.Typed.Sing
 import Michelson.Typed.T
 import Michelson.Typed.Value
-import Michelson.Typed.Haskell.Value
 import qualified Michelson.Untyped.Type as U
 import Util.IO
 import qualified Tezos.Address as Tezos
