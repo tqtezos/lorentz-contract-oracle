@@ -47,6 +47,8 @@ deriving instance Show a => Show (Timestamped a)
 
 deriving instance IsoValue a => IsoValue (Timestamped a)
 
+deriving instance HasTypeAnn a => HasTypeAnn (Timestamped a)
+
 -- | Wrap `Timestamped`
 toTimestamped :: forall a s. Timestamp & a & s :-> Timestamped a & s
 toTimestamped = do

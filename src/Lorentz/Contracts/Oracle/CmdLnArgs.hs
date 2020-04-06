@@ -323,11 +323,11 @@ fromSomeContractParam (SomeContractParam xs (_, _) (Dict, Dict)) f = f xs
 
 -- | Parse and typecheck a Michelson value
 parseTypeCheckValue ::
-     forall t. (Typeable t, SingI t)
+     forall t. (SingI t)
   => Parser (Value t)
 parseTypeCheckValue =
   (>>= either (fail . show) return) $
-  runTypeCheckIsolated . flip runReaderT def . typeVerifyValue . expandValue <$>
+  runTypeCheckIsolated . flip runReaderT def . typeCheckValue . expandValue <$>
   (value <* eof)
 
 parseSomeContractParam :: String -> Opt.Parser SomeContractParam
