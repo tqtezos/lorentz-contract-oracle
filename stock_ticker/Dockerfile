@@ -32,9 +32,6 @@ COPY . /app
 # RUN ls /app/env
 # RUN ls /app/env/bin
 
-# ENTRYPOINT [ "ls" ]
-# CMD [ "env/bin" ]
-
 # ENTRYPOINT [ "bash" ]
 # CMD [ "-c", "source env/bin/activate && flask run --host 0.0.0.0" ]
 
