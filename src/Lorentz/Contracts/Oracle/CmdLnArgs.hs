@@ -3,6 +3,7 @@
 module Lorentz.Contracts.Oracle.CmdLnArgs where
 
 import Data.Char
+import GHC.Generics
 import Control.Applicative
 import Control.Monad
 import Text.Show (Show(..))
@@ -28,6 +29,7 @@ import Michelson.Typed.Scope
 import Michelson.Typed.Sing
 import Michelson.Typed.T
 import Michelson.Typed.Value
+import Michelson.Typed.Haskell.Value
 import qualified Michelson.Untyped.Type as U
 import Util.IO
 import qualified Tezos.Address as Tezos
@@ -46,6 +48,10 @@ instance IsoValue (Value' Instr t) where
   type ToT (Value' Instr t) = t
   toVal = id
   fromVal = id
+
+-- | No `Notes`
+instance SingI t => HasTypeAnn (Value' Instr t) where
+  getTypeAnn = starNotes
 
 -- | Parse something between the two given `Char`'s
 betweenChars :: Char -> Char -> ReadP a -> ReadP a
@@ -116,12 +122,6 @@ outputOptions = optional . Opt.strOption $ mconcat
   ]
 
 
-assertIsNatural :: forall (t :: T) r. (SingI t, Typeable t) => Proxy t -> (t ~ ToT Natural => r) -> r
-assertIsNatural _ x =
-  case eqT @t @(ToT Natural) of
-    Nothing -> error . fromString $ "assertIsNatural: expected Natural, but got: " ++ show (fromSing (sing @t))
-    Just Refl -> x
-
 assertOpAbsense :: forall (t :: T) a. SingI t => (HasNoOp t => a) -> a
 assertOpAbsense f =
   case opAbsense (sing @t) of
@@ -133,6 +133,19 @@ assertBigMapAbsense f =
   case bigMapAbsense (sing @t) of
     Nothing -> error "assertBigMapAbsense"
     Just Dict -> forbiddenBigMap @t f
+
+assertNestedBigMapsAbsense :: forall (t :: T) a. SingI t => (HasNoNestedBigMaps t => a) -> a
+assertNestedBigMapsAbsense f =
+  case nestedBigMapsAbsense (sing @t) of
+    Nothing -> error "assertNestedBigMapsAbsense"
+    Just Dict -> forbiddenNestedBigMaps @t f
+
+assertContractAbsense :: forall (t :: T) a. SingI t => (HasNoContract t => a) -> a
+assertContractAbsense f =
+  case contractTypeAbsense (sing @t) of
+    Nothing -> error "assertContractAbsense"
+    Just Dict -> forbiddenContractType @t f
+
 
 singTypeableCT :: forall (t :: CT). Sing t -> Dict (Typeable t)
 singTypeableCT SCInt = Dict
@@ -413,17 +426,19 @@ runCmdLnArgs = \case
     withDict (singTypeableT st) $
     assertOpAbsense @t $
     assertBigMapAbsense @t $
-    assertIsNatural (Proxy @t) $
+    assertNestedBigMapsAbsense @t $
+    assertContractAbsense @t $
     maybe TL.putStrLn writeFileUtf8 mOutput $
-    printLorentzContract forceOneLine (Oracle.uncheckedOracleContract @Natural) -- (Value t))
+    printLorentzContract forceOneLine (Oracle.uncheckedOracleContract @(Value t))
   PrintTimeStamped (SomeSing (st :: Sing t)) mOutput forceOneLine ->
     withDict (singIT st) $
     withDict (singTypeableT st) $
     assertOpAbsense @t $
     assertBigMapAbsense @t $
-    assertIsNatural (Proxy @t) $
+    assertNestedBigMapsAbsense @t $
+    assertContractAbsense @t $
     maybe TL.putStrLn writeFileUtf8 mOutput $
-    printLorentzContract forceOneLine (Oracle.timestampedOracleContract @Natural) -- (Value (ToT Natural)))
+    printLorentzContract forceOneLine (Oracle.timestampedOracleContract @(Value t))
   Init {..} ->
     fromSomeContractParam currentValue $ \currentValue' ->
       TL.putStrLn . printLorentzValue forceSingleLine $

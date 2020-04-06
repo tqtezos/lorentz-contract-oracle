@@ -42,12 +42,8 @@ deriving instance Show a => Show (Parameter a)
 
 deriving instance IsoValue a => IsoValue (Parameter a)
 
-instance ParameterHasEntryPoints (Parameter Natural) where
-  type ParameterEntryPointsDerivation (Parameter Natural) = EpdPlain
-
-instance ParameterHasEntryPoints (Parameter (Timestamped Natural)) where
-  type ParameterEntryPointsDerivation (Parameter (Timestamped Natural)) = EpdPlain
-
+instance (IsoValue a, HasTypeAnn a) => ParameterHasEntryPoints (Parameter a) where
+  type ParameterEntryPointsDerivation (Parameter a) = EpdPlain
 
 -- | Wrap `UpdateValue`
 toUpdateValue :: forall a s. KnownValue a => a & s :-> Parameter a & s
