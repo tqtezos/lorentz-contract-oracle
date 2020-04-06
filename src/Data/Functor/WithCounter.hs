@@ -15,7 +15,7 @@ import Michelson.Text
 import Control.Monad.Trans.Writer.Strict
 import qualified Options.Applicative as Opt
 
-import Lorentz.Contracts.Parse (parseNatural)
+-- import Lorentz.Contracts.Parse (parseNatural)
 
 -- | A value with a `Natural` counter
 data WithCounter a = WithCounter
@@ -62,6 +62,16 @@ instance Monad WithCounter where
     unWriter $
     toWriter xs >>= toWriter . f
 
+-- | Parse a natural number argument, given its field name
+parseNatural :: String -> Opt.Parser Natural
+parseNatural name =
+  Opt.option Opt.auto $
+  mconcat
+    [ Opt.long name
+    , Opt.metavar "NATURAL"
+    , Opt.help $ "Natural number representing " ++ name ++ "."
+    ]
+
 -- | Parse a `Natural` counter and value, given a `Opt.Parser` for the value
 parseWithCounter :: Opt.Parser a -> Opt.Parser (WithCounter a)
 parseWithCounter p =
@@ -73,12 +83,12 @@ parseWithCounter p =
 toWithCounter :: forall a s. Natural & a & s :-> WithCounter a & s
 toWithCounter = do
   pair
-  coerce_ @(Natural, a) @(WithCounter a)
+  forcedCoerce_ @(Natural, a) @(WithCounter a)
 
 -- | Unwrap `WithCounter`
 unWithCounter :: forall a s. WithCounter a & s :-> (Natural, a) & s
 unWithCounter = do
-  coerce_ @(WithCounter a) @(Natural, a)
+  forcedCoerce_ @(WithCounter a) @(Natural, a)
 
 -- | Assert the counter matches the given value
 assertWithCounter_ :: WithCounter a & Natural & s :-> a & s

@@ -2,7 +2,7 @@
 
 <<: *meta
 name:                lorentz-contract-oracle
-version:             0.1.0.1
+version:             0.2.0.0
 github:              "tqtezos/lorentz-contract-oracle"
 license:             BSD3
 author:              "Michael J. Klein TQ Tezos"
@@ -32,10 +32,13 @@ library:
     - aeson
     - constraints
     - binary
-    - lorentz-contracts
-    - lorentz-contract-param
+    - morley-ledgers
+    - lorentz
+    # - lorentz-contracts
+    # - lorentz-contract-param
     - optparse-applicative
     - transformers
+    - megaparsec
 
 executables:
   lorentz-contract-oracle:
@@ -49,6 +52,7 @@ executables:
     - lorentz-contract-oracle
     - optparse-applicative
     - morley
+    - lorentz
     - named
     - text
     - morley-prelude

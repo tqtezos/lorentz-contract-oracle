@@ -18,12 +18,9 @@ import Michelson.Printer
 
 import qualified Options.Applicative as Opt
 import qualified Data.Text.Lazy as TL
-import Data.Singletons
 import Text.PrettyPrint.ANSI.Leijen.Internal (Doc, linebreak)
 
 import qualified Lorentz.Contracts.Oracle.CmdLnArgs as OracleCmdLnArgs
-import qualified Lorentz.Contracts.Admin.Simple.CmdLnArgs as SimpleAdminCmdLnArgs
-import qualified Lorentz.Contracts.Admin.Signed.CmdLnArgs as SignedAdminCmdLnArgs
 
 -- | Convert to a `Value`, untype, and render
 showValue :: (IsoValue t, SingI (ToT t), HasNoOp (ToT t)) => t -> TL.Text
@@ -31,14 +28,10 @@ showValue = printTypedValue False . toVal
 
 data CmdLnArgs
   = OracleCmdLnArgs { oracleCmdLnArgs :: OracleCmdLnArgs.CmdLnArgs }
-  | SimpleAdminCmdLnArgs { simpleAdminCmdLnArgs :: SimpleAdminCmdLnArgs.CmdLnArgs }
-  | SignedAdminCmdLnArgs { signedAdminCmdLnArgs :: SignedAdminCmdLnArgs.CmdLnArgs }
 
 argParser :: Opt.Parser CmdLnArgs
 argParser = Opt.hsubparser $ mconcat
   [ Opt.command "Oracle" $ fmap OracleCmdLnArgs $ Opt.info OracleCmdLnArgs.argParser OracleCmdLnArgs.infoMod
-  , Opt.command "SimpleAdmin" $ fmap SimpleAdminCmdLnArgs $ Opt.info SimpleAdminCmdLnArgs.argParser SimpleAdminCmdLnArgs.infoMod
-  , Opt.command "SignedAdmin" $ fmap SignedAdminCmdLnArgs $ Opt.info SignedAdminCmdLnArgs.argParser SignedAdminCmdLnArgs.infoMod
   ]
   where
 
@@ -48,7 +41,7 @@ programInfo =
   Opt.info (Opt.helper <*> argParser) $
   mconcat
     [ Opt.fullDesc
-    , Opt.progDesc "Sale contract parameter generation helper"
+    , Opt.progDesc "Oracle contract parameter generation helper"
     , Opt.header "Lorentz tools"
     , Opt.footerDoc usageDoc
     ]
@@ -84,8 +77,4 @@ main = do
       \case
         OracleCmdLnArgs {..} ->
           OracleCmdLnArgs.runCmdLnArgs oracleCmdLnArgs
-        SimpleAdminCmdLnArgs {..} ->
-          SimpleAdminCmdLnArgs.runCmdLnArgs simpleAdminCmdLnArgs
-        SignedAdminCmdLnArgs {..} ->
-          SignedAdminCmdLnArgs.runCmdLnArgs signedAdminCmdLnArgs
 
