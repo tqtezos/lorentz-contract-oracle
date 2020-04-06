@@ -42,12 +42,8 @@ deriving instance Show a => Show (Parameter a)
 
 deriving instance IsoValue a => IsoValue (Parameter a)
 
-instance ParameterHasEntryPoints (Parameter Natural) where
-  type ParameterEntryPointsDerivation (Parameter Natural) = EpdPlain
-
-instance ParameterHasEntryPoints (Parameter (Timestamped Natural)) where
-  type ParameterEntryPointsDerivation (Parameter (Timestamped Natural)) = EpdPlain
-
+instance (IsoValue a, HasTypeAnn a) => ParameterHasEntryPoints (Parameter a) where
+  type ParameterEntryPointsDerivation (Parameter a) = EpdPlain
 
 -- | Wrap `UpdateValue`
 toUpdateValue :: forall a s. KnownValue a => a & s :-> Parameter a & s
@@ -91,7 +87,7 @@ unStorage = forcedCoerce_
 oracleContract ::
      forall a. (NiceParameter a)
   => (forall s. a & a & s :-> a & a & s) -- ^ new_value, previous_value
-  -> Contract (Parameter a) (Storage a)
+  -> ContractCode (Parameter a) (Storage a)
 oracleContract check = do
   unpair
   caseT @(Parameter a)
@@ -141,7 +137,7 @@ updateAdmin = do
 
 uncheckedOracleContract ::
      forall a. NiceParameter a
-  => Contract (Parameter a) (Storage a)
+  => ContractCode (Parameter a) (Storage a)
 uncheckedOracleContract =
   oracleContract nop
 
@@ -149,7 +145,7 @@ uncheckedOracleContract =
 -- i.e. that it returns (roughly) the timestamp of the _last_ block.
 timestampedOracleContract ::
      forall a. NiceParameter a
-  => Contract (Parameter (Timestamped a)) (Storage (Timestamped a))
+  => ContractCode (Parameter (Timestamped a)) (Storage (Timestamped a))
 timestampedOracleContract =
   oracleContract $ do
     -- assertBeforeNow

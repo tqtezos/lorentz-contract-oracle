@@ -33,7 +33,7 @@ library:
     - constraints
     - binary
     - morley-ledgers
-    - morley-lorentz
+    - lorentz
     # - lorentz-contracts
     # - lorentz-contract-param
     - optparse-applicative
@@ -52,6 +52,7 @@ executables:
     - lorentz-contract-oracle
     - optparse-applicative
     - morley
+    - lorentz
     - named
     - text
     - morley-prelude
