@@ -35,7 +35,7 @@ ply==3.11
 pyblake2==1.1.2
 pycparser==2.19
 pysodium==0.7.3
-pytezos==2.1.9
+pytezos==2.4.4
 python-dateutil==2.6.1
 python-slugify==1.2.4
 pytz==2019.3

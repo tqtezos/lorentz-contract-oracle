@@ -37,6 +37,8 @@ COPY . /app
 
 # ENTRYPOINT [ "env/bin/python" ]
 
+ENV FLASK_ENV=development
+
 ENTRYPOINT [ "flask" ]
 CMD [ "run", "--host", "0.0.0.0" ]
 
