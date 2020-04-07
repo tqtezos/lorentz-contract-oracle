@@ -1,8 +1,9 @@
 from alpha_vantage.timeseries import TimeSeries
 from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime, timezone
 from flask import Flask
 from pytezos import pytezos, Key
+
+from datetime import datetime, timezone
 import atexit, base64, os, tempfile
 
 oracle_address = os.environ['ORACLE_ADDRESS']
@@ -19,7 +20,7 @@ with tempfile.NamedTemporaryFile(suffix='.json', delete=False) as key_file:
 class OracleServer:
     def __init__(self, api_key=alpha_vantage_api_key, ticker_symbol=alpha_vantage_ticker_symbol, tezos_key=tezos_user_key, oracle_contract_address=oracle_address):
         self.oracle_contract_address = oracle_contract_address
-        self.pytezos_instance = pytezos.using(key=tezos_key, shell='babylonnet')
+        self.pytezos_instance = pytezos.using(key=tezos_key, shell='carthagenet')
         self.time_series = TimeSeries(key=api_key, output_format='json')
         self.ticker_symbol = ticker_symbol
 
@@ -29,7 +30,7 @@ class OracleServer:
     def update_value(self):
         try:
             now_utc = datetime.now(tz=timezone.utc)
-            operation_group = self.oracle_contract().update_value(value_timestamp=now_utc, value=self.price()).operation_group
+            operation_group = self.oracle_contract().updateValue(now_utc, self.price()).operation_group # hi
             operation_str = f"<p> Last operation:\n{operation_group.autofill().sign().inject()} </p>"
             storage_str = f"<p> Current storage:\n{self.oracle_contract().storage()} </p>"
             return (operation_str + storage_str)
@@ -53,11 +54,7 @@ class OracleServer:
             raise f"expected_none not None: {str(expected_none)}"
 
 def update_oracle():
-    result_str = str(OracleServer().update_value())
-    print('')
-    print(result_str)
-    print('')
-    return result_str
+    return str(OracleServer().update_value())
 
 app = Flask(__name__)
 
