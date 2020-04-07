@@ -12,33 +12,16 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# COPY . /app
-COPY ./requirements.txt /app/requirements.txt
-# COPY ./env /app/env
-
-WORKDIR /app
-
-# ENV PATH="/app/env/bin:$PATH"
-
+RUN pip3 install --user pipenv
+COPY ./requirements.txt ./requirements.txt
 RUN pip3 install -r requirements.txt
+RUN pip3 install 'flask==1.1.2'
+RUN pip3 install 'alpha-vantage==2.1.3'
+RUN pip3 install 'apscheduler==3.6.3'
 
-COPY . /app
+COPY . /
 
-# ENTRYPOINT [ "/app/run_flask.sh" ]
-
-# RUN which flask
-
-# RUN ls /app
-# RUN ls /app/env
-# RUN ls /app/env/bin
-
-# ENTRYPOINT [ "bash" ]
-# CMD [ "-c", "source env/bin/activate && flask run --host 0.0.0.0" ]
-
-# ENTRYPOINT [ "env/bin/python" ]
-
-ENV FLASK_ENV=development
+WORKDIR /
 
 ENTRYPOINT [ "flask" ]
 CMD [ "run", "--host", "0.0.0.0" ]
-
