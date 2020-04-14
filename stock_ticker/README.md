@@ -1,10 +1,11 @@
 
-NOTE: This is currently a WIP of being updated for `Carthage`
-
 # Intro
 
 You can find a deployed copy of the oracle contract that receives
 `AAPL` stock prices every ~30 seconds [here](https://better-call.dev/carthage/KT1CUTjTqf4UMf6c9A8ZA4e1ntWbLVTnvrKG/operations)
+
+The Docker image is available [on DockerHub](https://hub.docker.com/r/tqtezos/oracle-stock-ticker).
+
 
 # Setup
 
@@ -14,12 +15,13 @@ You can find a deployed copy of the oracle contract that receives
 ❯❯❯ brew tap cuber/homebrew-libsecp256k1
 ❯❯❯ brew install libsodium libsecp256k1 gmp
 ```
+
 Note: for the following, order matters: if you run the `PIP_IGNORE_INSTALLED=1`
 after `pytezos`, it won't recognize the system-installed `libsecp256k1` and
 will fail attempting to install the Python-bundled version.
 
 ```bash
-❯❯❯ pipenv --three --site-packages    
+❯❯❯ pipenv --three --site-packages
 ❯❯❯ PIP_IGNORE_INSTALLED=1 pipenv install --dev alpha-vantage APScheduler Flask 
 ❯❯❯ pipenv install pytezos
 ```
@@ -36,7 +38,7 @@ pipenv run -- flask run --host 0.0.0.0
 ```
 
 
-## Setup Cont.
+## Setup Continued
 
 To update `requirements.txt`:
 
@@ -59,14 +61,6 @@ To build the `Docker` image:
 docker build -t oracle-stock-ticker:latest .
 ```
 
-To push it to DockerHub:
-
-```bash
-docker images
-docker tag 68861b674784 tqtezos/oracle-stock-ticker:latest 
-docker push tqtezos/oracle-stock-ticker
-```
-
 To run:
 
 ```bash
@@ -84,6 +78,20 @@ Build and run:
   --env FLASK_APP="tq/oracles/ticker.py" \
   oracle-stock-ticker:latest
 ```
+
+
+## Publishing to DockerHub
+
+To push it to DockerHub:
+
+```bash
+docker images
+docker tag 68861b674784 tqtezos/oracle-stock-ticker:latest 
+docker push tqtezos/oracle-stock-ticker
+```
+
+
+## Environment variables
 
 All environment variables:
 

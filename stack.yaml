@@ -1,9 +1,5 @@
 resolver: lts-14.15
 
-
-
-extra-deps:
-
 extra-deps:
 - aeson-options-0.1.0
 - base58-bytestring-0.1.0
