@@ -77,6 +77,7 @@ tests:
     - tasty
     - tasty-hspec
     - tasty-hunit-compat
+    - tasty-discover
     - containers
     - lorentz-contract-oracle
     - template-haskell
