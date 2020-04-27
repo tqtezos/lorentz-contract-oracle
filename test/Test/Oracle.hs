@@ -57,6 +57,7 @@ test_UpdateValue = testGroup "UpdateValue" $ concat $
     , ( [e|0::Integer|], [e|42::Integer|] )
     , ( [e|False|], [e|True|] )
     , ( [e|[mt|hi|]|], [e|[mt|hello world|]|] )
+    , ( [e|[]::[Natural]|], [e|[1,2,3]::[Natural]|] )
     ]
     ))
 
@@ -85,6 +86,7 @@ test_GetValue = testGroup "GetValue" $ concat $
     , [e|42::Integer|]
     , [e|True|]
     , [e|[mt|hello world|]|]
+    , [e|[1,2,3]::[Natural]|]
     ]
     ))
 

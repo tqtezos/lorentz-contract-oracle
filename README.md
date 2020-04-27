@@ -1,4 +1,6 @@
 
+[![Actions Status](https://github.com/tqtezos/lorentz-contract-oracle/workflows/Continuous%20Integration/badge.svg)](https://github.com/tqtezos/lorentz-contract-oracle/actions?query=workflow%3A"Continuous+Integration")
+
 See [`quick_start.md`](quick_start.md)
 
 # The CLI
