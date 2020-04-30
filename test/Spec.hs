@@ -1,3 +1,5 @@
+{-# OPTIONS -Wno-missing-export-lists #-}
+
 module Main where
 
 import Test.Tasty

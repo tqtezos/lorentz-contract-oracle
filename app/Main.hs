@@ -9,7 +9,7 @@ import Control.Applicative
 import Control.Monad hiding (fail)
 import Data.Function
 import System.IO
-import Prelude (die, displayException, catchAny)
+import Prelude (die, displayException, catchAny, maybe)
 
 import Lorentz
 import Michelson.Typed.Scope
@@ -18,6 +18,7 @@ import Michelson.Printer
 
 import qualified Options.Applicative as Opt
 import qualified Data.Text.Lazy as TL
+import qualified Data.Text.Lazy.IO as TL
 import Text.PrettyPrint.ANSI.Leijen.Internal (Doc, linebreak)
 
 import qualified Lorentz.Contracts.Oracle.CmdLnArgs as OracleCmdLnArgs
@@ -76,5 +77,5 @@ main = do
     run =
       \case
         OracleCmdLnArgs {..} ->
-          OracleCmdLnArgs.runCmdLnArgs oracleCmdLnArgs
+          maybe TL.putStrLn writeFileUtf8 `OracleCmdLnArgs.runCmdLnArgs` oracleCmdLnArgs
 

@@ -69,8 +69,8 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - base
     - morley
+    - morley-prelude
     - lorentz
     - hspec
     - HUnit
@@ -81,3 +81,6 @@ tests:
     - containers
     - lorentz-contract-oracle
     - template-haskell
+    - text
+    - megaparsec
+    - optparse-applicative
