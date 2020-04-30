@@ -1,2 +1,11 @@
+{-# OPTIONS -Wno-missing-export-lists #-}
+
+module Main where
+
+import Test.Tasty
+import Tree (tests)
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = do
+  tests >>= defaultMain
+

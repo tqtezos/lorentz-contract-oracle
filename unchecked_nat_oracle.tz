@@ -1,13 +1,10 @@
-parameter (or (pair :get_value (unit %unit)
-                               (contract %callback_contract (pair timestamp
-                                                                  nat)))
-              (or (pair %update_value (timestamp %value_timestamp)
-                                      (nat %value))
-                  (address %update_admin)));
-storage (pair (pair timestamp
-                    nat)
+parameter (or (pair %getValue unit
+                              (contract nat))
+              (or (nat %updateValue)
+                  (address %updateAdmin)));
+storage (pair nat
               address);
-code { CAST (pair (or (pair unit (contract (pair timestamp nat))) (or (pair timestamp nat) address)) (pair (pair timestamp nat) address));
+code { CAST (pair (or (pair unit (contract nat)) (or nat address)) (pair nat address));
        DUP;
        CAR;
        DIP { CDR };
@@ -28,16 +25,6 @@ code { CAST (pair (or (pair unit (contract (pair timestamp nat))) (or (pair time
                { IF_LEFT { DIP { DUP;
                                  CAR;
                                  DIP { CDR } };
-                           DIP { DUP };
-                           DUP;
-                           DIP { SWAP };
-                           CAR;
-                           DIP { CAR };
-                           COMPARE;
-                           GT;
-                           IF {  }
-                              { PUSH string "not newer";
-                                FAILWITH };
                            DIP { DROP;
                                  DUP;
                                  DIP { SENDER;

@@ -9,7 +9,7 @@ import Text.Show (Show(..))
 import Data.List
 import Data.Either
 import Data.Function (id, flip, const)
-import Prelude (FilePath, IO, runReaderT)
+import Prelude (FilePath, runReaderT)
 import Data.String (String)
 import Data.Maybe
 import Data.Typeable
@@ -29,12 +29,11 @@ import Michelson.Typed.Sing
 import Michelson.Typed.T
 import Michelson.Typed.Value
 import qualified Michelson.Untyped.Type as U
-import Util.IO
 import qualified Tezos.Address as Tezos
 
 import qualified Options.Applicative as Opt
 import qualified Data.Text as T
-import qualified Data.Text.Lazy.IO as TL
+import qualified Data.Text.Lazy as TL
 import Data.Constraint
 import Data.Singletons
 import Text.Megaparsec (eof)
@@ -417,8 +416,9 @@ infoMod = mconcat
   , Opt.progDesc "Oracle contract CLI interface"
   ]
 
-runCmdLnArgs :: CmdLnArgs -> IO ()
-runCmdLnArgs = \case
+-- | f = maybe TL.putStrLn writeFileUtf8 mOutput
+runCmdLnArgs :: (Maybe FilePath -> TL.Text -> r) -> CmdLnArgs -> r
+runCmdLnArgs f = \case
   Print (SomeSing (st :: Sing t)) mOutput forceOneLine ->
     withDict (singIT st) $
     withDict (singTypeableT st) $
@@ -426,7 +426,7 @@ runCmdLnArgs = \case
     assertBigMapAbsense @t $
     assertNestedBigMapsAbsense @t $
     assertContractAbsense @t $
-    maybe TL.putStrLn writeFileUtf8 mOutput $
+    f mOutput $
     printLorentzContract forceOneLine (Oracle.uncheckedOracleContract @(Value t))
   PrintTimeStamped (SomeSing (st :: Sing t)) mOutput forceOneLine ->
     withDict (singIT st) $
@@ -435,22 +435,22 @@ runCmdLnArgs = \case
     assertBigMapAbsense @t $
     assertNestedBigMapsAbsense @t $
     assertContractAbsense @t $
-    maybe TL.putStrLn writeFileUtf8 mOutput $
+    f mOutput $
     printLorentzContract forceOneLine (Oracle.timestampedOracleContract @(Value t))
   Init {..} ->
     fromSomeContractParam currentValue $ \currentValue' ->
-      TL.putStrLn . printLorentzValue forceSingleLine $
+      f Nothing . printLorentzValue forceSingleLine $
       Oracle.Storage currentValue' admin
   GetValue {..} ->
-    TL.putStrLn . printLorentzValue forceSingleLine $
+    f Nothing . printLorentzValue forceSingleLine $
     Oracle.GetValue @() $
     mkView () $ callingDefTAddress @() $ toTAddress callbackContract
   UpdateValue {..} ->
     fromSomeContractParam newValue $ \newValue' ->
-      TL.putStrLn . printLorentzValue forceSingleLine $
+      f Nothing . printLorentzValue forceSingleLine $
       Oracle.UpdateValue newValue'
   UpdateAdmin {..} ->
-    TL.putStrLn . printLorentzValue forceSingleLine $
+    f Nothing . printLorentzValue forceSingleLine $
     Oracle.UpdateAdmin @() newAdmin
   where
     forceSingleLine = True

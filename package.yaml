@@ -39,6 +39,7 @@ library:
     - optparse-applicative
     - transformers
     - megaparsec
+    - template-haskell
 
 executables:
   lorentz-contract-oracle:
@@ -68,4 +69,18 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
+    - morley
+    - morley-prelude
+    - lorentz
+    - hspec
+    - HUnit
+    - tasty
+    - tasty-hspec
+    - tasty-hunit-compat
+    - tasty-discover
+    - containers
     - lorentz-contract-oracle
+    - template-haskell
+    - text
+    - megaparsec
+    - optparse-applicative
